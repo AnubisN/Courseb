@@ -1,0 +1,55 @@
+@import "../../styles/variables.scss";
+
+.button__primary {
+    background-color: $primary;
+    outline: none;
+    width: 165px;
+    height: 56px;
+    cursor: pointer;
+    color: white;
+    font-size: 16px;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-radius: 5px;
+    border: none;
+
+    &__small {
+        background-color: $primary;
+        outline: none;
+        width: 115px;
+        height: 40px;
+        cursor: pointer;
+        color: white;
+        font-size: 13px;
+        text-transform: uppercase;
+        font-weight: bold;
+        border-radius: 5px;
+        border: none;
+    }
+}
+
+.button__secondary {
+    background-color: #fff;
+        width: 165px;
+        height: 56px;
+        cursor: pointer;
+        color: $primary;
+        font-size: 13px;
+        text-transform: uppercase;
+        font-weight: bold;
+        border-radius: 5px;
+        border: 2px solid $primary;
+
+    &__small {
+        background-color: #fff;
+        width: 115px;
+        height: 40px;
+        cursor: pointer;
+        color: $primary;
+        font-size: 13px;
+        text-transform: uppercase;
+        font-weight: bold;
+        border-radius: 5px;
+        border: 2px solid $primary;
+    }
+}

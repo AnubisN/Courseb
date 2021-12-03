@@ -1,0 +1,79 @@
+@import "../../styles/variables.scss";
+
+.footer__container {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    background: linear-gradient(to right, #00093c, #2d0b00);
+    color: #fff;
+    padding: 100px 0 30px;
+    font-size: 13px;
+    line-height: 20px;
+
+    & {
+        @media (max-width: 700px) {
+            footer {
+                bottom: unset;
+            }
+        }
+    }
+
+    &__row{
+       width: 85%;
+       margin: auto;
+       display: flex;
+       flex-wrap: wrap;
+       align-items: flex-start; 
+       justify-content: space-between;
+    }
+
+    &__col{
+        flex-basis: 25%;
+        padding: 10px;
+
+        &:nth-child(2), &:nth-child(3) {
+            flex-basis: 15%;
+
+            @media (max-width: 700px) {
+                flex-basis: 100%;
+            }
+        }
+
+        & {
+            @media (max-width: 700px) {
+                flex-basis: 100%;
+            }
+        }
+
+        &__logo {
+            width: 80px;
+            margin-bottom: 30px;
+        }
+
+        & h3 {
+            width: fit-content;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        &__email {
+            width: fit-content;
+            border-bottom: 1px solid #ccc;
+            margin: 20px 0;
+        }
+
+        &__ul {
+            padding-inline-start: 0px;
+        }
+
+        &__ul li {
+            list-style: none;
+            margin-bottom: 12px;
+        }
+
+        &__ul li a {
+            text-decoration: none;
+            color: #fff;
+        }
+    }
+}

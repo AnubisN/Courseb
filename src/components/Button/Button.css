@@ -1,0 +1,8 @@
+.button__primary {
+    /* background-color: $primary; */
+    outline: none;
+    width: 165px;
+    height: 56px;
+    font: italic;
+    cursor: pointer;
+}

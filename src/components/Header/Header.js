@@ -4,6 +4,7 @@ import classes from './Header.module.scss';
 
 import { BiMenuAltRight } from "react-icons/bi";
 import { AiOutlineClose } from "react-icons/ai";
+import Button from '../Button/Button';
 
 function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -37,7 +38,7 @@ function Header() {
     return (
         <header className={classes.header}>
             <div className={classes.header__content}>
-                <h2 className={classes.header__content__log}>Navbar</h2>
+                <h2 className={classes.header__content__logo}>Logo</h2>
 
                 <nav 
                 className={`${classes.header__content__nav} ${menuOpen && size.width < 768 ? classes.isMenu : "" }`}
@@ -56,8 +57,12 @@ function Header() {
                             <a>Gallery</a>
                         </li>
                     </ul>
-                    <button>Log in</button>
-                    <button>Register</button>
+                    <Button className={classes.button} type="secondary__small">
+                        Login    
+                    </Button>
+                    <Button className={classes.button} type="primary__small">
+                        Register    
+                    </Button>
                 </nav>
                 <div className={classes.header__content__toggle}>
                     { !menuOpen ? (
