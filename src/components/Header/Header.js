@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-
+import { Link } from 'react-router-dom'
 import classes from './Header.module.scss';
 
 import { BiMenuAltRight } from "react-icons/bi";
@@ -38,7 +38,9 @@ function Header() {
     return (
         <header className={classes.header}>
             <div className={classes.header__content}>
-                <h2 className={classes.header__content__logo}>Logo</h2>
+                <div className={classes.header__content__logo}>
+                    <img src="/logo.png" />    
+                </div> 
 
                 <nav 
                 className={`${classes.header__content__nav} ${menuOpen && size.width < 768 ? classes.isMenu : "" }`}
@@ -51,14 +53,14 @@ function Header() {
                             <a>Courses</a>
                         </li>
                         <li>
-                            <a>Blog</a>
+                            <Link to="/blog">Blog</Link>
                         </li>
                         <li>
                             <a>Gallery</a>
                         </li>
                     </ul>
                     <Button className={classes.button} type="secondary__small">
-                        Login    
+                        Log in    
                     </Button>
                     <Button className={classes.button} type="primary__small">
                         Register    

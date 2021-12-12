@@ -1,0 +1,172 @@
+@import "../../styles/variables.scss";
+
+.boderbox {
+    width: auto;
+    height: auto;
+    background-color: $secondary;
+}
+
+.hero__container {
+    width: 100%;
+    height: 85vh;
+    background: $heroContainer;
+
+    display: flex;
+    justify-content: space-between;
+
+    &__content {
+        width: 600px;
+        margin-left:210px;
+        margin-top: 183px;
+
+       & h1 {
+           font-size: 80px !important;
+       }
+
+       & p {
+           line-height: 25px;
+           letter-spacing: 0.5px;
+       }
+
+       & button {
+           margin-top: 20px;
+       }
+    }
+
+    &__img {
+        width: auto;
+        height: auto;
+        margin-top: 73px;
+        margin-right: 120px;
+
+        & img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
+
+.popular__courses {
+    // display: flex;
+    // justify-content: center;
+
+    &__body {
+        // display: flex;
+        // justify-content: center;
+    }
+
+    // &__container {
+    //     margin: 30px auto;
+    // }
+
+    &__title {
+        text-align: center;
+        font-size: 35px;
+        margin: 80px 0;
+        margin-bottom: 30px;
+
+        & span{
+            color: $secondary;
+        }
+    }
+
+    &__container {
+        background: rgba(218,227,234,0.4);
+        &__card {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        
+            &__viewMore {
+                text-align: center;
+                font-size: 18px;
+                margin: 30px;
+                color: $secondary;
+                cursor: pointer;
+                padding: 15px;
+                text-decoration: underline;
+                font-weight: 500;
+            }
+        }
+    }
+}
+
+.reasons {
+    &__title {
+        text-align: center;
+        font-size: 35px;
+        margin: 80px 0;
+        margin-bottom: 30px;
+
+        & span{
+            color: $secondary;
+        }
+    }
+
+}
+
+.section__title {
+    text-align: center;
+    font-size: 35px;
+    margin: 90px auto;
+    margin-bottom: 50px;
+
+    & span{
+        color: $secondary;
+    }
+
+    &__course {
+        text-align: center;
+        font-size: 35px;
+        margin: 50px 0;
+        margin-bottom: 30px;
+
+        & span{
+            color: $secondary;
+        }
+    }
+}
+
+.faqs {
+    &__container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
+    }
+}
+
+
+.testimonials {
+    &__container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &__arrows {
+            display: flex;
+            justify-content: flex-end;
+            
+            &__leftarrow {
+                font-size: 20px;
+                color: $primary;
+                margin: 20px;
+
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+
+            &__rightarrow {
+                font-size: 20px;
+                color: $primary;
+                margin: 20px;
+
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}

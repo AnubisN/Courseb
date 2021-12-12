@@ -1,15 +1,17 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700&display=swap');
 
-$Poppins: "Poppins", sans-serif;
+$Heebo: "Heebo", sans-serif;
 
 // colors
 $black: #25313C;
 $navColor: #F6F9FC;
+$heroContainer: #F0F0F0;
 $dark: rgb(29, 29, 29);
 $light: #fff;
 $primary: #0066FF;
 $secondary: #6A88FF;
 $bg: rgba(244, 244, 255, 0.637);
+$pgColor: #6D7D8B;
 
 // spacing
 $spacing-md: 16px;

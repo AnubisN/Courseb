@@ -25,6 +25,20 @@
         font-weight: bold;
         border-radius: 5px;
         border: none;
+
+        
+        &__body {
+            background-color: $secondary;
+            outline: none;
+            width: 115px;
+            height: 40px;
+            cursor: pointer;
+            color: white;
+            font-size: 13px;
+            font-weight: 500;
+            border-radius: 5px;
+            border: none;
+        }
     }
 }
 
@@ -52,4 +66,19 @@
         border-radius: 5px;
         border: 2px solid $primary;
     }
+
+
+}
+
+.button__primary__body {
+    background-color: $primary;
+    outline: none;
+    width: 165px;
+    height: 56px;
+    cursor: pointer;
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 5px;
+    border: none;
 }

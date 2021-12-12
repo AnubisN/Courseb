@@ -1,0 +1,25 @@
+@import '../../styles/variables.scss';
+
+.faqCard {
+    width: 764px;
+    height: 115px;
+    outline: 1px solid rgba(187, 200, 212, 1);
+    margin: 30px auto;
+
+    &__container {
+        margin: 25px;
+        display: flex;
+        justify-content: space-between;
+
+        &__content {
+            &__icon {
+                font-size: 22px;
+                color:$secondary;
+            }
+        }
+    }
+
+    &__title {
+        color: $secondary;
+    }
+}

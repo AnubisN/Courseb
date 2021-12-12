@@ -7,7 +7,7 @@ function Footer() {
             <div className={classes.footer__container__row}>
                 <div className={classes.footer__container__col}>
                     <h2 className={classes.footer__container__col__logo}>Courseb</h2>
-                    <p>Description</p>
+                    <p>We strive to provide high quality courses focused on programming skills</p>
                 </div>
                 <div className={classes.footer__container__col}>
                     <h3>Company</h3>
@@ -27,6 +27,13 @@ function Footer() {
                 </div>
                 <div className={classes.footer__container__col}>
                     <h3>We Accept</h3>
+                    <div className={classes.footer__container__logo}>
+                        <img src="/esewa.png" />
+                    </div>
+
+                    <div className={classes.footer__container__logo}>
+                        <img src="/khalti.png" />
+                    </div>
                 </div>
             </div>
         </footer>

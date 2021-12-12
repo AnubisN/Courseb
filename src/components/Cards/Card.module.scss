@@ -1,0 +1,68 @@
+@import "../../styles/variables.scss";
+
+
+.card {
+    width: 367px;
+    height: 452px;
+    background-color: #fff;
+    border-radius: 5px;
+    margin: 20px 60px;
+    overflow: hidden;
+    transition: all .3s ease-in;
+
+    &:hover {
+        transform: scale(1.1);
+        cursor: pointer;
+    }
+
+    &__image {
+        display: block;
+        width: 100%;
+        height: 216px;
+        border-radius: 5px;
+        object-fit: cover;
+
+        & img{
+            width: 100%;
+            height: 100%;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            
+            transition: all .3s ease-in;
+
+            &:hover {
+                transform: scale(1.1);
+            }
+        }
+    }
+
+    &__content {
+        width: 340px;
+        height: 452px;
+        text-align: justify;
+        margin: 4px 10px;
+
+        & h3 {
+            margin: 10px auto;
+        }
+
+        & p {
+            font-size: 16px;
+            color:$pgColor;
+            margin: 10px auto;
+        }
+
+        &__stars {
+            margin: 10px auto;
+            font-size: 23px;
+            color: orange;
+            transition: all .3s ease-in;
+
+            &:hover {
+                color: royalblue;
+            }
+        }
+    }
+
+}
+
