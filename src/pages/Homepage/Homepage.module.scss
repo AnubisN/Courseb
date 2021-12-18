@@ -139,32 +139,32 @@
 
 
 .testimonials {
+    display: flex;
+    flex-direction: column;
     &__container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        &__slider {
+            &__arrows {
+                display: flex;
+                justify-content: flex-end;
+                
+                &__leftarrow {
+                    font-size: 20px;
+                    color: $primary;
+                    margin: 20px;
 
-        &__arrows {
-            display: flex;
-            justify-content: flex-end;
-            
-            &__leftarrow {
-                font-size: 20px;
-                color: $primary;
-                margin: 20px;
-
-                &:hover {
-                    cursor: pointer;
+                    &:hover {
+                        cursor: pointer;
+                    }
                 }
-            }
 
-            &__rightarrow {
-                font-size: 20px;
-                color: $primary;
-                margin: 20px;
+                &__rightarrow {
+                    font-size: 20px;
+                    color: $primary;
+                    margin: 20px;
 
-                &:hover {
-                    cursor: pointer;
+                    &:hover {
+                        cursor: pointer;
+                    }
                 }
             }
         }

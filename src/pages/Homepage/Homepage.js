@@ -2,10 +2,10 @@ import React from 'react'
 import Button from '../../components/Button/Button'
 import Card from '../../components/Cards/Card'
 import classes from './Homepage.module.scss'
-import { AiOutlineArrowRight, AiOutlineArrowLeft } from 'react-icons/ai'
-import WhyCourseb from '../../components/whyCourseb'
-import TestimonialCard from '../../components/TestimonialCard'
-import FAQCard from '../../components/faqCard'
+import TestimonialSlider from './testimonialSlider'
+import FAQSection from './faqSection'
+import WhyCoursebSection from './whyCourseb'
+import coursebReasons from '../../data/whyCourseb';
 
 function Homepage() {
     return (
@@ -42,44 +42,12 @@ function Homepage() {
                     </div>
             </section>
 
-            <section className={classes.reasons}>
-                 <h2 className={classes.section__title}>Why <span>Courseb?</span></h2>
-                 <div className={classes.reasons__container}>
-                    <WhyCourseb />
-                    <WhyCourseb />
-                    <WhyCourseb />
-                 </div>
-            </section>
-
-            <section className={classes.faqs}>
-                <h2 className={classes.section__title}>Frequently Asked <span>Questions</span></h2>
-                <div className={classes.faqs__container}>
-                    <FAQCard />
-                    <FAQCard />
-                    <FAQCard />
-                    <FAQCard />
-                    <FAQCard />
-                </div>
-
-            </section>
+            <WhyCoursebSection coursebReasons={coursebReasons} />
+            <FAQSection />
 
             <section className={classes.testimonials}>
                 <h2 className={classes.section__title}><span>Testimonials</span></h2>
-                <div className={classes.testimonials__container}>
-                    <TestimonialCard />
-                    <TestimonialCard />
-                    <TestimonialCard />
-                    <TestimonialCard />
-                </div>
-                <div className={classes.testimonials__container__arrows}>
-                    <div className={classes.testimonials__container__arrows__leftarrow}>
-                        <AiOutlineArrowLeft />
-                    </div>
-                    <div className={classes.testimonials__container__arrows__rightarrow}>
-                        <AiOutlineArrowRight />
-                    </div>
-                </div>
-                
+                    <TestimonialSlider />
             </section>
         </div>
     )

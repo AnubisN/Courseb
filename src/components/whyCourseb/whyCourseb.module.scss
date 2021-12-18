@@ -60,9 +60,8 @@
 .whyCourseb__container__reverse{
     display: flex;
     align-items: center;
-    flex-direction: row-reverse;
     margin-bottom: 4em;
-    flex-wrap: wrap-reverse;
+    flex-direction: row-reverse;
     @media screen and(max-width: 480px) {
         justify-content: center;
     }

@@ -3,6 +3,7 @@ import classes from './index.module.scss'
 import { AiFillStar } from 'react-icons/ai';
 
 function TestimonialCard() {
+
     return (
         <div className={classes.testimonial__card}>
             <div className={classes.testimonial__card__content}>
