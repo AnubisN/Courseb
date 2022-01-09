@@ -1,22 +1,20 @@
 @import "../../styles/variables.scss";
 
 .header {
-    background: $navColor;
     width: 100%;
     height: $headerHeight;
-    padding: 0 1.5rem;
-    // border-bottom: 1px solid $bg;
-    // box-shadow: 5px 10px $bg;
-    @include breakpoint(md) {
-        padding: 0 3rem;
-    }
+    max-width: 100%;
+    margin: 0 auto;
     transition: 0.3s ease all;
 
+    @include breakpoint(md) {
+        width: 80%;
+        max-width: 80%;
+    }
+
     &__content {
-        overflow: hidden;
         color: $light;
-        margin: 0 auto;
-        max-width: 1920px;
+        max-width: 100%;
         height: 100%;
         display: flex;
         align-items: center;
@@ -24,25 +22,22 @@
         position: relative;
         z-index: 100;
 
-        & {
-            @include breakpoint(md) {
-                margin: 0 140px;
-            }
-        }
 
         &__logo {
-            font-size: 2rem;
-            font-weight: bold;
-            text-decoration: none;
-            color: $dark;
-            width: 160px;
-            height: 160px;
+            width: 110px;
+            height: auto;
+
+            @include breakpoint(md) {
+                width: 160px;
+                height: 160px;
+            }
 
             & img {
                 width: 100%;
                 height: 100%;
                 object-fit: contain;
             }
+         
         }
 
         &__nav {
@@ -82,14 +77,12 @@
                     flex-direction: row;
                     align-items: center;
                     margin-bottom: 0;
-                    margin-right: calc(0.5rem + #{$spacing-md});
                 }
                 li {
                     &:not(:last-child) {
                         margin-bottom: $spacing-lg;
                         @include breakpoint(md) {
                             margin-bottom: 0;
-                            margin-right: $spacing-md;
                         }
                     }
                     a {

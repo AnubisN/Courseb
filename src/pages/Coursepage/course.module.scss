@@ -1,0 +1,54 @@
+@import "../../styles/variables.scss";
+
+.container {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+
+    @include breakpoint(md) {
+        width: 80%;
+        max-width: 80%;
+    }
+}
+
+.course {
+    &__categories {
+        width: 90%;
+        margin: 3em auto;
+        margin-bottom: 0;
+        display: flex;
+        align-items: center;
+        justify-content: start;
+
+        &:hover {
+            cursor: pointer;
+        }
+
+        & p {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: $pgColor;
+        }
+
+        &__icon {
+            color: $secondary;
+            margin: 0.4em 0.5em;
+            margin-bottom: 0;
+        }
+    }
+
+    &__container {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        overflow: hidden;
+
+        @include breakpoint(md) {
+            width: 90%;
+            margin: 2em auto !important;
+            justify-content: space-between;
+        }
+    }
+}

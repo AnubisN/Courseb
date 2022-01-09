@@ -2,8 +2,8 @@ import React from 'react'
 import classes from './index.module.scss'
 import { AiFillStar } from 'react-icons/ai';
 
-function TestimonialCard() {
-
+function TestimonialCard({ testimo }) {
+    const {comment, image, rating, userName, currentJob} = testimo;
     return (
         <div className={classes.testimonial__card}>
             <div className={classes.testimonial__card__content}>
@@ -15,18 +15,18 @@ function TestimonialCard() {
                     <AiFillStar />
                 </div>
                 <p className={classes.testimonial__card__content__description}>
-                    Very good product at the end and iam surprised by the effort providedy by th team Very good product at the end and iam surprised by the effort providedy by th team
+                    {comment}
                 </p>
                 <div className={classes.testimonial__card__content__users}>
                     <div className={classes.testimonial__card__content__users__img}>
-                        <img src="amyGoldberg.jpg"/>
+                        <img src={`${image}`}/>
                     </div>
                     <div className={classes.testimonial__card__content__users__description}>
                         <p className={classes.testimonial__card__content__users__description__name}>
-                            Amy Goldberg
+                            {userName}
                         </p>
                         <p className={classes.testimonial__card__content__users__description__profession}>
-                            UI / UX Designer
+                            {currentJob}
                         </p>
                     </div>
                 </div>

@@ -1,18 +1,50 @@
 @import "../../styles/variables.scss";
 
 
-.card {
+.blogCard {
     width: 367px;
-    height: 452px;
+    max-width: 367px;
+    height: 420px;
     background-color: #fff;
     border-radius: 5px;
     margin: 20px 60px;
     overflow: hidden;
     transition: all .3s ease-in;
+    box-shadow: 0 0 15px rgba(60,78,100,0.15);
+
 
     &:hover {
         transform: scale(1.1);
         cursor: pointer;
+    }
+}
+
+.card {
+    width: 320px;
+    max-width: 320px;
+    height: 452px;
+    background-color: #fff;
+    border-radius: 5px;
+    margin: 2em 0;
+    transition: all .3s ease-in;
+    overflow: hidden;
+    box-shadow: 0 0 15px rgba(60,78,100,0.15);
+
+    @include breakpoint(md) {
+        width: 400px;
+        max-width: 400px;
+    }
+
+    &:hover {
+        transform: scale(1.1);
+        cursor: pointer;
+    }
+
+    &__tag {
+        font-size: 13px;
+        font-weight: 700;
+        color: $black !important;
+        padding: 10px auto;
     }
 
     &__image {
@@ -37,10 +69,14 @@
     }
 
     &__content {
-        width: 340px;
+        width: 290px;
         height: 452px;
         text-align: justify;
         margin: 4px 10px;
+
+        @include breakpoint (md) {
+            width: 340px;
+        }
 
         & h3 {
             margin: 10px auto;

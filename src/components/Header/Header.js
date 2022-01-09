@@ -39,7 +39,9 @@ function Header() {
         <header className={classes.header}>
             <div className={classes.header__content}>
                 <div className={classes.header__content__logo}>
+                    <Link to="/">
                     <img src="/logo.png" />    
+                    </Link>
                 </div> 
 
                 <nav 
@@ -47,10 +49,10 @@ function Header() {
                 >
                     <ul>
                         <li>
-                            <a>Home</a>
+                            <Link to="/">Home</Link>
                         </li>
                         <li>
-                            <a>Courses</a>
+                            <Link to="/courses">Courses</Link>
                         </li>
                         <li>
                             <Link to="/blog">Blog</Link>

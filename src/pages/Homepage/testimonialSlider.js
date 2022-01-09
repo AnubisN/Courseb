@@ -35,24 +35,16 @@ export default class TestimonialSlider extends React.Component{
         
 
         return (
-            <>
+            <section className={classes.testimonials}>
+                <h2 className={classes.section__title}><span>Testimonials</span></h2>
                 <div className={classes.testimonials__container}>
                     <Slider 
                         {...settings}
                         ref={c => (this.slider = c)}
                     >
-                        <TestimonialCard />
-                        <TestimonialCard />
-                        <TestimonialCard />
-                        <TestimonialCard />
-                        <TestimonialCard />
-                        <TestimonialCard />
-                        <TestimonialCard />
-                        <TestimonialCard />
-                        <TestimonialCard />
-                        <TestimonialCard />
-                        <TestimonialCard />
-                        <TestimonialCard />
+                        {this.props.testimonials.map(testimo => (
+                            <TestimonialCard testimo={testimo} />
+                        ))}
                     </Slider>
 
                     <div className={classes.testimonials__container__slider__arrows}>
@@ -65,7 +57,7 @@ export default class TestimonialSlider extends React.Component{
                         
                     </div>
                 </div>
-            </>
+            </section>
         
         )
     }

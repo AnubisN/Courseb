@@ -11,6 +11,11 @@ body {
     color: $dark;
 }
 
+img {
+    max-width: 100%;
+    display: block;
+}
+
 #root {
     height: 100%;
 }

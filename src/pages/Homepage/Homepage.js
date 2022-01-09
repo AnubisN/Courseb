@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import Button from '../../components/Button/Button'
 import Card from '../../components/Cards/Card'
 import classes from './Homepage.module.scss'
@@ -6,10 +6,38 @@ import TestimonialSlider from './testimonialSlider'
 import FAQSection from './faqSection'
 import WhyCoursebSection from './whyCourseb'
 import coursebReasons from '../../data/whyCourseb';
+import axios from 'axios'
+import PopularCourses from './popularCourse'
 
 function Homepage() {
+    const [courses, setCourses] = useState([]);
+    const [faqs, setFaqs] = useState([]);
+    const [testimonials, setTestimonials] = useState([]);
+
+
+    useEffect(() => {
+        async function fetchCourses() {
+            const { data } = await axios.get('/api/courses/')
+            setCourses(data);
+        }
+
+        async function fetchFAQs() {
+            const { data } = await axios.get('/api/faqs/')
+            setFaqs(data);
+        }
+
+        async function fetchTestimonials() {
+            const { data } = await axios.get('/api/testimonials/')
+            setTestimonials(data);
+        }
+
+        fetchCourses();
+        fetchFAQs();
+        fetchTestimonials();
+    }, [])
+
     return (
-        <div className={classes.borderbox}>
+        <div className={classes.container}>
             <div className={classes.hero__container}>
                 <div className={classes.hero__container__content}>
                     <h1 className={classes.hero__container__content__title}>Learn job ready <br/> courses online</h1>
@@ -23,32 +51,10 @@ function Homepage() {
                 </div>
             </div>
 
-            <section className={classes.popular__courses}>
-                    <h2 className={classes.section__title__course}>Our Popular <span>Courses</span></h2>
-                    <div className={classes.popular__courses__container}>
-                        <div className={classes.popular__courses__container__card}>
-                            <Card />
-                            <Card />
-                            <Card />
-                            <Card />
-                            <Card />
-                            <Card />
-                        </div>
-                        <div className={classes.popular__courses__container__card__viewMore}>
-                                <a>
-                                    View More
-                                </a>
-                        </div>
-                    </div>
-            </section>
-
+            <PopularCourses courses = {courses} />
             <WhyCoursebSection coursebReasons={coursebReasons} />
-            <FAQSection />
-
-            <section className={classes.testimonials}>
-                <h2 className={classes.section__title}><span>Testimonials</span></h2>
-                    <TestimonialSlider />
-            </section>
+            <FAQSection faqs = {faqs} />
+            <TestimonialSlider testimonials={testimonials} />
         </div>
     )
 }

@@ -2,16 +2,17 @@ import React from 'react'
 import classes from './index.module.scss'
 import { AiOutlineArrowUp } from 'react-icons/ai'
 
-function FAQCard() {
+function FAQCard({ faq }) {
+    const { question, answer } = faq;
     return (
         <div className={classes.faqCard}>
             <div className={classes.faqCard__container}>
                 <div className={classes.faqCard__container__content}>
                     <h3 className={classes.faqCard__title}>
-                        How do I enroll for the course?
+                        {question}
                     </h3>
                     <p className={classes.faqCard__answer}>
-                        You just to need make payment for the course during checkout to enroll a course.
+                        {answer}
                     </p>
                 </div>
                 <div className={classes.faqCard__container__content__icon}>

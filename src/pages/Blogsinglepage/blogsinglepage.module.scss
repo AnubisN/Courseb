@@ -1,0 +1,65 @@
+@import '../../styles/variables.scss';
+
+.blog__container {
+    margin: 100px auto;
+    &__title {
+        margin: 40px auto;
+        &__release__date {
+            text-align: center;
+        }
+
+        &__h2 {
+            text-align: center;
+            margin: 10px auto;
+            font-size: 35px;
+        }
+    }
+
+    &__image {
+        width: 1500px;
+        margin: 0 auto;
+        max-width: 1000px;
+
+        & img{
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    &__description {
+        margin: 15px auto;
+        width: 50%;
+
+        & p {
+            color: $pgColor;
+            font-size: 17px;
+            text-align: justify;
+            word-spacing: 3px;
+            margin: 20px auto;
+        }
+
+        &__author{
+            display: flex;
+            & p {
+                margin: 0 auto;
+            }
+            &__img {
+                width: 150px;
+                height: 150px;
+
+                & img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: contain;
+                }
+            }
+            &__details{
+                margin-top: 40px;
+                &__name{
+                    color: black !important;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+}
