@@ -1,6 +1,11 @@
 @import "../../styles/variables.scss";
 
 
+.courseLink {
+    text-decoration: none;
+    color: $black;
+}
+
 .blogCard {
     width: 367px;
     max-width: 367px;
