@@ -1,0 +1,41 @@
+@import '../../styles/variables.scss';
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 2em;
+    width: 80%;
+    max-width: 80%;
+    margin: 0 auto;
+}
+
+.box {
+    margin: 1em 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.dream {
+    display: flex;
+    flex-direction: column;
+    width: 32.5%;
+}
+
+.dream img{
+    width: 100%;
+    padding-bottom: 15px;
+    border: 5px;
+}
+
+@media only screen and(max-width: 769px) {
+    .container .box {
+        flex-direction: column;
+    }
+
+    .container .box .dream {
+        width: 100%;
+    }
+}

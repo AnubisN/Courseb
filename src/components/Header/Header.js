@@ -55,7 +55,7 @@ function Header() {
                             <Link to="/courses">Courses</Link>
                         </li>
                         <li>
-                            <Link to="/blog">Blog</Link>
+                            <Link to="/blogs">Blog</Link>
                         </li>
                         <li>
                             <a>Gallery</a>

@@ -6,6 +6,7 @@ import Blogpage from './pages/Blogpage/Blogpage';
 import BlogSinglePage from './pages/Blogsinglepage';
 import CourseSinglePage from './pages/Coursesinglepage';
 import Coursepage from './pages/Coursepage/Coursepage';
+import Gallerpage from './pages/Gallerypage/Gallerpage';
 
 function App() {
   return (
@@ -13,10 +14,11 @@ function App() {
     <Header />
     <Routes>
       <Route path="/" element={<Homepage />}/>
-      <Route path="/blog" element={<Blogpage />} />
-      <Route path="/blogsingle" element={<BlogSinglePage />} />
+      <Route path="/blogs" element={<Blogpage />} />
+      <Route path="/blogs/:id" element={<BlogSinglePage />} />
       <Route path="/coursesingle" element={<CourseSinglePage />}/>
       <Route path="/courses" element={<Coursepage />} />
+      <Route path="/gallery" element={<Gallerpage />}/>
     </Routes>
     {/* <Footer /> */}
     </BrowserRouter>
