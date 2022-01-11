@@ -58,7 +58,7 @@ function Header() {
                             <Link to="/blogs">Blog</Link>
                         </li>
                         <li>
-                            <a>Gallery</a>
+                            <Link to="/gallery">Gallery</Link>
                         </li>
                     </ul>
                     <Button className={classes.button} type="secondary__small">

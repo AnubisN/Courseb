@@ -6,6 +6,13 @@
     margin: 4em auto;
 }
 
+.title {
+    font-size: 2rem;
+    text-decoration: underline;
+    margin-bottom: 1em;
+    text-align: center;
+}
+
 .currentBlog {
     border-bottom: 1px solid $pgColor;
     margin-bottom: 2em;

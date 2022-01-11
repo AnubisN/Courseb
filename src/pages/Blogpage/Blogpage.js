@@ -19,6 +19,7 @@ function Blogpage() {
 
     return (
         <div className={classes.container}>
+            <h2 className={classes.title}>Blogs</h2>
             {
                 blogs.map((blog,i) => (
                     (i == 0) 
