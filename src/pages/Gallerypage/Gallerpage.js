@@ -23,7 +23,6 @@ function Gallerpage() {
 
     return (
         <div className={classes.container}>
-            <h2 className={classes.title}>Gallery</h2>
             <div className={model ? classes.model__open : classes.model}>
                 <img src={tempimgSrc} />
                 <AiOutlineClose onClick={() => setModel(false)} />

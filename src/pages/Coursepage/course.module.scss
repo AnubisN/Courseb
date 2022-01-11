@@ -52,3 +52,35 @@
         }
     }
 }
+
+.pagination {
+    margin: 0 auto;
+}
+
+.paginationBttns {
+    width: 100%;
+    height: 40px;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.paginationBttns a {
+    padding: 10px;
+    margin: 8px;
+    border-radius: 5px;
+    color: $secondary;
+    cursor: pointer;
+}
+
+.paginationBttns a:hover,
+.paginationBttns a:focus {
+    color: white;
+    background-color: $secondary;
+}
+
+.paginationBttns a:active {
+    color: white;
+    background-color: $secondary;
+}
