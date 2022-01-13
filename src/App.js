@@ -11,6 +11,7 @@ import SignupPage from './pages/SignupPage/signupPage';
 import LoginPage from './pages/LoginPage/loginPage';
 import ProfilePage from './pages/Profilepage/profilepage';
 import ProfilePagePassword from './pages/Profilepage/profilepagepassword';
+import ContactUsPage from './pages/ContactusPage/contactPage';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
       <Route path="/login" element={<LoginPage />}/>
       <Route path="/accountSettings" element={<ProfilePage />}/>
       <Route path="/changePassword" element={<ProfilePagePassword />}/>
+      <Route path="/contactus" element={<ContactUsPage />}/>
     </Routes>
     <Footer />
     </BrowserRouter>
