@@ -9,6 +9,8 @@ import Coursepage from './pages/Coursepage/Coursepage';
 import Gallerpage from './pages/Gallerypage/Gallerpage';
 import SignupPage from './pages/SignupPage/signupPage';
 import LoginPage from './pages/LoginPage/loginPage';
+import ProfilePage from './pages/Profilepage/profilepage';
+import ProfilePagePassword from './pages/Profilepage/profilepagepassword';
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
       <Route path="/gallery" element={<Gallerpage />}/>
       <Route path="/register" element={<SignupPage />}/>
       <Route path="/login" element={<LoginPage />}/>
+      <Route path="/accountSettings" element={<ProfilePage />}/>
+      <Route path="/changePassword" element={<ProfilePagePassword />}/>
     </Routes>
     {/* <Footer /> */}
     </BrowserRouter>

@@ -14,16 +14,24 @@ function SignupPage() {
                     <h2>Register</h2>
                     <form>
                         <div className={classes.container__contentBx__formBx__inputBx}>
-                            <span>Name</span>
-                            <input type="text" name="" />
+                            <span>First Name</span>
+                            <input type="text" name="" required />
+                        </div>
+                        <div className={classes.container__contentBx__formBx__inputBx}>
+                            <span>Last Name</span>
+                            <input type="text" name="" required />
                         </div>
                         <div className={classes.container__contentBx__formBx__inputBx}>
                             <span>Email</span>
-                            <input type="text" name="" />
+                            <input type="text" name="" required />
                         </div>
                         <div className={classes.container__contentBx__formBx__inputBx}>
                             <span>Password</span>
-                            <input type="password" name="" />
+                            <input type="password" name="" required />
+                        </div>
+                        <div className={classes.container__contentBx__formBx__inputBx}>
+                            <span>Confirm Password</span>
+                            <input type="password" name="" required />
                         </div>
                         <div className={classes.container__contentBx__formBx__inputBx}>
                             <Button className={classes.button} type="primary__small">
