@@ -61,12 +61,16 @@ function Header() {
                             <Link to="/gallery">Gallery</Link>
                         </li>
                     </ul>
-                    <Button className={classes.button} type="secondary__small">
-                        Log in    
-                    </Button>
-                    <Button className={classes.button} type="primary__small">
-                        Register    
-                    </Button>
+                    <Link to="/login">
+                        <Button className={classes.button} type="secondary__small">
+                            Log in    
+                        </Button>
+                    </Link>
+                    <Link to="/register" >
+                        <Button className={classes.button} type="primary__small">
+                            Register    
+                        </Button>
+                    </Link>
                 </nav>
                 <div className={classes.header__content__toggle}>
                     { !menuOpen ? (

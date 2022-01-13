@@ -7,6 +7,8 @@ import BlogSinglePage from './pages/Blogsinglepage';
 import CourseSinglePage from './pages/Coursesinglepage';
 import Coursepage from './pages/Coursepage/Coursepage';
 import Gallerpage from './pages/Gallerypage/Gallerpage';
+import SignupPage from './pages/SignupPage/signupPage';
+import LoginPage from './pages/LoginPage/loginPage';
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
       <Route path="/courses/:id" element={<CourseSinglePage />}/>
       <Route path="/courses" element={<Coursepage />} />
       <Route path="/gallery" element={<Gallerpage />}/>
+      <Route path="/register" element={<SignupPage />}/>
+      <Route path="/login" element={<LoginPage />}/>
     </Routes>
     {/* <Footer /> */}
     </BrowserRouter>
