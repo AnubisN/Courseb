@@ -37,7 +37,8 @@ function Homepage() {
     }, [])
 
     return (
-        <div className={classes.container}>
+        <>
+        <section className={classes.container}>
             <div className={classes.hero__container}>
                 <div className={classes.hero__container__content}>
                     <h1 className={classes.hero__container__content__title}>Learn job ready <br/> courses online</h1>
@@ -50,12 +51,14 @@ function Homepage() {
                     <img src="girl.png"/>
                 </div>
             </div>
+        </section>
 
             <PopularCourses courses = {courses} />
             <WhyCoursebSection coursebReasons={coursebReasons} />
             <FAQSection faqs = {faqs} />
             <TestimonialSlider testimonials={testimonials} />
-        </div>
+        </>
+       
     )
 }
 

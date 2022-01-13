@@ -28,7 +28,7 @@ function App() {
       <Route path="/accountSettings" element={<ProfilePage />}/>
       <Route path="/changePassword" element={<ProfilePagePassword />}/>
     </Routes>
-    {/* <Footer /> */}
+    <Footer />
     </BrowserRouter>
   );
 }

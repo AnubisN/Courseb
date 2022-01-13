@@ -29,7 +29,33 @@ export default class TestimonialSlider extends React.Component{
             infinite: true,
             speed: 300,
             slidesToShow: 3.6,
-            slidesToScroll: 3.6
+            slidesToScroll: 3.6,
+            responsive: [
+                {
+                  breakpoint: 1024,
+                  settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2,
+                    infinite: true,
+                    dots: true
+                  }
+                },
+                {
+                  breakpoint: 600,
+                  settings: {
+                    slidesToShow: 1.1,
+                    slidesToScroll: 1.1,
+                    initialSlide: 1
+                  }
+                },
+                {
+                  breakpoint: 480,
+                  settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                  }
+                }
+              ]
         }
 
         
@@ -43,7 +69,7 @@ export default class TestimonialSlider extends React.Component{
                         ref={c => (this.slider = c)}
                     >
                         {this.props.testimonials.map(testimo => (
-                            <TestimonialCard testimo={testimo} />
+                            <TestimonialCard key={testimo.userName} testimo={testimo} />
                         ))}
                     </Slider>
 

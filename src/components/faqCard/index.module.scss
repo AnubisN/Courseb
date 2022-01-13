@@ -1,21 +1,40 @@
 @import '../../styles/variables.scss';
 
 .faqCard {
-    width: 764px;
+    width: 90%;
     height: auto;
     outline: 1px solid rgba(187, 200, 212, 1);
-    margin: 30px auto;
+    margin: 1em auto;
+    padding: 1em;
+    position: relative;
+
+    transition: all .2s ease;
+
+    @include breakpoint (md) {
+        width: 50%;
+    }
 
     &__container {
         margin: 25px;
         display: flex;
         justify-content: space-between;
 
+        &__opened {
+            margin: 25px;
+            display: flex;
+            justify-content: space-between;
+        }
+
         &__content {
             &__icon {
                 font-size: 22px;
                 color:$secondary;
+
+                &:hover {
+                    cursor: pointer;
+                }
             }
+            height: 50%;
         }
     }
 

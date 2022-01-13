@@ -4,10 +4,10 @@
     display: flex;
     align-items: center;
     margin-bottom: 4em;
-    & {
-        @media screen and(max-width: 480px) {
-            justify-content: center;
-        }
+    flex-direction: column;
+    
+    @include breakpoint (md) {
+        flex-direction: row;
     }
 
     &__description {
@@ -15,10 +15,8 @@
         flex-direction: column;
         align-items: center;
         max-width: 60%;
-        & {
-            @media screen and(max-width: 480px) {
-                max-width: 100%;
-            }
+        @media (max-width: 480px) {
+            max-width: 100%;
         }
 
         &__title {
@@ -26,9 +24,6 @@
             font-weight: 700;
             margin: 5px 0;
             display: inline-block;
-            @media screen and (max-width: 480px) {
-                margin-top: 1.5em;
-            }
         }
 
         &__desc {
@@ -36,18 +31,13 @@
             font-size: 17px;
             text-align: justify;
             max-width: 55%;
-            @media screen and (max-width: 480px) {
-                margin-top: 100%;
-            }
+            margin-bottom: 1em;
         }
 
         &__img {
+            max-width: 55%;
             width: 55em;
-            height: 33em;
-            @media screen and (max-width: 480px) {
-                width: 18em;
-                height: 13em;
-              }
+
             & img {
                 width: 100%;
                 height: 100%;
@@ -60,9 +50,14 @@
 .whyCourseb__container__reverse{
     display: flex;
     align-items: center;
+    flex-direction: column !important;
     margin-bottom: 4em;
-    flex-direction: row-reverse;
-    @media screen and(max-width: 480px) {
+
+    @include breakpoint (md) {
+        flex-direction: row-reverse !important;
+    }
+
+    @media (max-width: 480px) {
         justify-content: center;
     }
 }
