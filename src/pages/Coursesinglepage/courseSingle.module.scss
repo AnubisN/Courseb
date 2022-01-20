@@ -37,8 +37,12 @@
         }
 
         &__title {
-            font-size: 3rem;
+            font-size: 2rem;
             color: white;
+
+            @include breakpoint(md) {
+                font-size: 3rem;
+            }
         }
 
         &__reviews {

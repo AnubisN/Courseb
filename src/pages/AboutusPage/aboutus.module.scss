@@ -1,0 +1,94 @@
+@import '../../styles/variables.scss';
+
+.header  {
+    width: 100%;
+    margin: 2em auto;
+    text-align: center;
+
+    & h1 {
+        font-size: 2.5rem;
+        text-transform: uppercase;
+        margin: 2em auto;
+        margin-bottom: 1em;
+        color: $secondary;
+    }
+
+    & p {
+        margin: 1em auto;
+    }
+}
+
+.container {
+    width: 80%;
+    max-width: 80%;
+    margin: 4em auto;
+    margin-top: 6em;
+    display: flex;
+    flex-direction: column;
+    // align-items: center;
+    justify-content: center;
+
+    @include breakpoint(md) {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    &__content {
+        width: 100%;
+        margin: 2em 0;
+
+        @include breakpoint(md) {
+            width: 40%;
+            margin: 2em 0;
+        }
+    
+
+        & p {
+            margin: 2em 0;
+            text-align: justify;
+        }
+    }
+
+    &__img {
+        width: 100%;
+        margin: 2em 0;
+
+        
+        @include breakpoint(md) {
+            width: 40%;
+            margin: 2em 0;
+        }
+
+        & img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+}
+
+.followUs {
+    width: 80%;
+    font-weight: 300;
+    max-width: 80%;
+    margin: 0 auto;
+    margin-bottom: 2em;
+    text-align: center;
+
+    & h3 {
+        font-weight: 500;
+    }
+
+    &__container {
+        // background: $secondarylight;
+        max-width: 20%;
+        margin: 1em auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    
+        & img {
+            margin: 2em;
+        }
+    }
+}

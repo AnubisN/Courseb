@@ -1,5 +1,65 @@
 @import "../../styles/variables.scss";
 
+.user {
+    &__name {
+        font-weight: 500;
+        color: #fff;
+
+        @include breakpoint (md) {
+            color: $dark;
+        }
+    }
+
+    & ul li a {
+        display: flex;
+        height: 40px;
+        align-items: center;
+    }
+
+    & img {
+        margin: 0 10px;
+        border-radius: 50%;
+    }
+
+    & a {
+        text-align: right;
+    }
+
+}
+
+.dropdown {
+    position: relative;
+    right: 0;
+    background: #fff;
+    padding: 10px 25px;
+    border-radius: 5px;
+    box-shadow: 0 0 15px rgba(60,78,100,0.15);
+
+    @include breakpoint (md) {
+        position: absolute;
+        top: 90px;
+    }
+
+    & ul {
+        display: flex;
+        flex-direction: column !important;
+
+        & li {
+            color: $dark;
+        }
+    }
+
+    &:before {
+        content: "";
+        position: absolute;
+        top: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+        border: 10px solid;
+        border-color: transparent transparent #fff transparent;
+    }
+}
+
 .header {
     width: 100%;
     height: $headerHeight;

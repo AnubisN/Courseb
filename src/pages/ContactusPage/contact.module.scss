@@ -1,6 +1,6 @@
 @import "../../styles/variables.scss";
 
-section {
+.contactUs {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -8,21 +8,21 @@ section {
     background: $primarylight;
 }
 
-section:before {
+.contactUs:before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 50%;
     height: 100%;
-    background: $secondarylight;
+    background: $secondary;
 }
 
 .container {
     position: relative;
     min-width: 1100px;
     min-height: 550px;
-    z-index: 9999;
+    // z-index: 9999;
 
     &__contactInfo {
         position: absolute;
@@ -219,8 +219,8 @@ section:before {
 }
 
 @media (max-width: 991px) {
-    section {
-        background: #fff38e;
+    .contactUs {
+        background: $secondary;
 
         &:before {
             display: none;

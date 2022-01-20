@@ -1,5 +1,6 @@
 import React from 'react'
 import classes from './Footer.module.scss'
+import { Link } from 'react-router-dom'
 
 function Footer() {
     return (
@@ -12,16 +13,16 @@ function Footer() {
                 <div className={classes.footer__container__col}>
                     <h3>Company</h3>
                     <ul className={classes.footer__container__col__ul}>
-                        <li><a href="">Blog</a></li>
-                        <li><a href="">Gallery</a></li>
-                        <li><a href="">Courses</a></li>
+                        <li><Link to="/blogs">Blog</Link></li>
+                        <li><Link to="/gallery">Gallery</Link></li>
+                        <li><Link to="/courses">Courses</Link></li>
                     </ul>
                 </div>
                 <div className={classes.footer__container__col}>
                     <h3>More Info</h3>
                     <ul className={classes.footer__container__col__ul}>
-                        <li><a href="">About Us</a></li>
-                        <li><a href="">Contact Us</a></li>
+                        <li><Link to="/aboutus">About Us</Link></li>
+                        <li><Link to="/contactus">Contact Us</Link></li>
                         <li><a href="">Jobs</a></li>
                     </ul>
                 </div>

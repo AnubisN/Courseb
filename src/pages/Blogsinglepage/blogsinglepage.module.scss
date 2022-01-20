@@ -1,9 +1,16 @@
 @import '../../styles/variables.scss';
 
 .blog__container {
-    margin: 100px auto;
+    width: 80%;
+    margin: 6em auto;
     &__title {
-        margin: 40px auto;
+        margin: 2em auto;
+        width: 100%;
+
+        @include breakpoint(md) {
+            width: 50%;
+        }
+
         &__release__date {
             text-align: center;
         }
@@ -16,7 +23,7 @@
     }
 
     &__image {
-        width: 1500px;
+        width: 100%;
         margin: 0 auto;
         max-width: 1000px;
 
@@ -28,14 +35,21 @@
 
     &__description {
         margin: 15px auto;
-        width: 50%;
+        width: 80%;
+
+        @include breakpoint(md) {
+            width: 60%;
+        }
 
         & p {
             color: $pgColor;
-            font-size: 17px;
+            font-size: 1rem;
             text-align: justify;
-            word-spacing: 3px;
             margin: 20px auto;
+
+            @include breakpoint(md) {
+                word-spacing: 3px;
+            }
         }
 
         &__author{

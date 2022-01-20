@@ -6,7 +6,68 @@ import { BiMenuAltRight } from "react-icons/bi";
 import { AiOutlineClose } from "react-icons/ai";
 import Button from '../Button/Button';
 
+function HeaderUserInfo() {
+    const [toggle,setToggle] = useState(false)
+    const menuToggle = () => {
+        setToggle(!toggle)
+    }
+
+    const logOut = () => {
+        localStorage.removeItem('userInfo');
+    }
+
+    return(
+        <div className={classes.user}>
+            <ul>
+                <li>
+                    <a onClick={menuToggle}>
+                        <p className={classes.user__name}>Lalit Mah...</p>
+                        <img src="liveInteraction.jpg" width="40" height="40"/>
+                    </a>
+                    <div className={classes.dropdown} style={{display: toggle ? 'block' : 'none'}}>
+                        <ul>
+                            <li>
+                                <Link to="/accountSettings">
+                                    Profile
+                                </Link>
+                            </li>
+                            <li>
+                                <a>
+                                    Courses
+                                </a>
+                            </li>
+                            <li>
+                                <Link to="/" onClick={logOut}>
+                                    Logout
+                                </Link>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    )
+}
+
+function HeaderButtons() {
+    return(
+        <>
+            <Link to="/login">
+                <Button className={classes.button} type="secondary__small">
+                    Log in    
+                </Button>
+            </Link>
+            <Link to="/register" >
+                <Button className={classes.button} type="primary__small">
+                    Register    
+                </Button>
+            </Link>
+        </>
+    )
+}
+
 function Header() {
+    const [loggedIn, setLoggedIn] = useState({})
     const [menuOpen, setMenuOpen] = useState(false);
     const [size, setSize] = useState({
         width: undefined,
@@ -14,6 +75,8 @@ function Header() {
     })
 
     useEffect(() => {
+        setLoggedIn(localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null)
+
         const handleResize = () => {
             setSize({
                 width: window.innerWidth,
@@ -23,6 +86,7 @@ function Header() {
         window.addEventListener("resize", handleResize);
 
         return () => window.removeEventListener("resize", handleResize);
+
     }, [])
 
     useEffect(() => {
@@ -61,16 +125,12 @@ function Header() {
                             <Link to="/gallery">Gallery</Link>
                         </li>
                     </ul>
-                    <Link to="/login">
-                        <Button className={classes.button} type="secondary__small">
-                            Log in    
-                        </Button>
-                    </Link>
-                    <Link to="/register" >
-                        <Button className={classes.button} type="primary__small">
-                            Register    
-                        </Button>
-                    </Link>
+                    {
+                        loggedIn ? 
+                        <HeaderUserInfo />
+                        :
+                        <HeaderButtons />
+                    }
                 </nav>
                 <div className={classes.header__content__toggle}>
                     { !menuOpen ? (

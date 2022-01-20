@@ -12,6 +12,7 @@ import LoginPage from './pages/LoginPage/loginPage';
 import ProfilePage from './pages/Profilepage/profilepage';
 import ProfilePagePassword from './pages/Profilepage/profilepagepassword';
 import ContactUsPage from './pages/ContactusPage/contactPage';
+import AboutUs from './pages/AboutusPage/aboutusPage';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
       <Route path="/accountSettings" element={<ProfilePage />}/>
       <Route path="/changePassword" element={<ProfilePagePassword />}/>
       <Route path="/contactus" element={<ContactUsPage />}/>
+      <Route path="/aboutus" element={<AboutUs />} />
     </Routes>
     <Footer />
     </BrowserRouter>

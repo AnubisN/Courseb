@@ -3,7 +3,7 @@ import classes from './contact.module.scss'
 
 function ContactUsPage() {
     return (
-        <section>
+        <section className={classes.contactUs}>
             <div className={classes.container}>
                 <div className={classes.container__contactInfo}>
                     <div>

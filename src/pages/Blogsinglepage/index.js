@@ -15,12 +15,14 @@ function BlogSinglePage() {
         fetchBlog();   
     },[])
 
+    let actualDate = String(new Date(blog.createdAt)).split(" ");
+
     return (
         <>
             <section className={classes.blog__container}>
                 <div className={classes.blog__container__title}>
                     <p className={classes.blog__container__title__release__date}>
-                        Published January 25, 2021
+                        Published on {actualDate[2] + ' ' + actualDate[1] + ', ' + actualDate[3]}
                     </p>
                     <h1 className={classes.blog__container__title__h2}>
                         {blog.name}
