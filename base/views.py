@@ -1,4 +1,6 @@
 from email import message
+from http.client import ResponseNotReady
+from tabnanny import check
 from django.shortcuts import render
 from django.http import JsonResponse
 from rest_framework.decorators import api_view, permission_classes
@@ -6,11 +8,11 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 
 from .models import Blog, Course, FAQ, Gallery, Testimonial, User
-from .serializers import BlogSerializer, CourseSerializer, FAQSerializer, GallerySerializer, TestimonialSerializer, UserSerializer, UserSerializerWithToken
+from .serializers import BlogSerializer, CourseSerializer, FAQSerializer, GallerySerializer, TestimonialSerializer, UserSerializer, UserSerializerWithToken, UserPasswordSerializer
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import make_password, check_password
 from rest_framework import status
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -53,6 +55,64 @@ def getUserProfile(request):
     user = request.user
     serializer = UserSerializer(user, many=False)
     return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getUserDetails(request, pk):
+    user = User.objects.get(id=pk)
+    serializer = UserSerializer(user, many=False)
+    return Response(serializer.data)
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def updateUserImg(request,pk):
+    user = User.objects.get(id=pk)
+    serializer = UserSerializerWithToken(user,many=False)
+
+    profilePicture = request.FILES['profilePicture']
+    print(profilePicture)
+    user.profilePicture = profilePicture
+    user.save()
+    return Response(serializer.data)
+
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def updateUser(request,pk):
+    user = User.objects.get(id=pk)
+    serializer = UserSerializerWithToken(user,many=False)
+
+    data = request.data
+    print(data)
+    user.first_name = data['firstName']
+    user.last_name = data['lastName']
+    user.address = data['address']
+    user.job = data['job']
+    user.phoneNumber = data['phoneNumber']
+    user.email = data['email']
+    user.save()
+
+    serializer = UserSerializer(user, many=False)
+
+    return Response(serializer.data)
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def updateUserPassword(request,pk):
+    user = User.objects.get(id=pk)
+    serializer = UserPasswordSerializer(user,many=False)
+    data = request.data
+    password = data['password']
+
+    if check_password(password,user.password):
+        user.set_password(data['newPassword'])
+        user.save()
+        serializer = UserSerializerWithToken(user, many=False)
+        return Response(serializer.data)
+    else:
+        message = {'detail': 'Old password does not match'}
+        return Response(message,status=status.HTTP_400_BAD_REQUEST)
+
 
 @api_view(['GET'])
 def getCourses(request):

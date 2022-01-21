@@ -8,6 +8,11 @@ class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
         fields = '__all__'
+
+class UserPasswordSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['password']
     
 class UserSerializer(serializers.ModelSerializer):
     name = serializers.SerializerMethodField(read_only=True)
@@ -16,7 +21,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id','_id','username','email','name','isAdmin']
+        fields = ['id','_id','phoneNumber','job','address','email','name','isAdmin','profilePicture','first_name','last_name']
 
     def get__id(self, obj):
         return obj.id
