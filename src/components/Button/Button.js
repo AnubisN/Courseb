@@ -4,7 +4,7 @@ import './Button.scss'
 function Button(props) {
     const myClasss = `button__${props.type}`
     return (
-        <button className={myClasss}>
+        <button className={myClasss} >
             {props.children}
         </button>
     )

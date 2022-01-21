@@ -1,15 +1,16 @@
 @import '../../styles/variables.scss';
 
 .container {
-    width: 100%;
-    max-width: 100%;
+    width: 80%;
+    max-width: 80%;
     position: relative;
-    margin: 4em auto;
+    margin: 2em auto;
 
     @include breakpoint(md) {
         width: 80%;
         max-width: 80%;
         height: 90vh;
+        margin: 4em auto;
     }
 
     &__box {
@@ -126,7 +127,12 @@
 
                 & h2 {
                     font-weight: 500;
-                    margin-bottom: 2em;
+                    margin-top: -4em;
+
+                    @include breakpoint (md) {
+                        margin-top: 0;
+                        margin-bottom: 2em;
+                    }
                 }
             }
         }
@@ -135,6 +141,10 @@
 
 .form__input {
     width: 100%;
+
+    & input {
+        padding: 2px;
+    }
 
     @include breakpoint (md) {
         width: 50%;
