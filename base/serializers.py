@@ -2,7 +2,7 @@ from dataclasses import field
 from django.db.models import fields
 from rest_framework import serializers
 from rest_framework_simplejwt.tokens import RefreshToken
-from .models import Blog, Course, FAQ, Gallery, Testimonial, User
+from .models import Blog, Course, FAQ, Gallery, Testimonial, User, EnrolledCourse
 
 class CourseSerializer(serializers.ModelSerializer):
     class Meta:
@@ -65,4 +65,9 @@ class BlogSerializer(serializers.ModelSerializer):
 class GallerySerializer(serializers.ModelSerializer):
     class Meta:
         model = Gallery
+        fields = '__all__'
+
+class EnrolledCourseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EnrolledCourse
         fields = '__all__'

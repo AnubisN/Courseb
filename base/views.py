@@ -7,8 +7,8 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 
-from .models import Blog, Course, FAQ, Gallery, Testimonial, User
-from .serializers import BlogSerializer, CourseSerializer, FAQSerializer, GallerySerializer, TestimonialSerializer, UserSerializer, UserSerializerWithToken, UserPasswordSerializer
+from .models import Blog, Course, FAQ, Gallery, Testimonial, User, EnrolledCourse
+from .serializers import BlogSerializer, CourseSerializer, FAQSerializer, GallerySerializer, TestimonialSerializer, UserSerializer, UserSerializerWithToken, UserPasswordSerializer, EnrolledCourseSerializer
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 
@@ -155,3 +155,15 @@ def getTestimonials(request):
     testimonials = Testimonial.objects.all()
     serializer = TestimonialSerializer(testimonials, many=True)
     return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getEnrolledCourses(request,pk):
+    enrolledCourses = EnrolledCourse.objects.select_related('course').filter(user=pk)
+    courses = []
+
+    for item in enrolledCourses.iterator():
+        serializer = CourseSerializer(Course.objects.filter(name=item.course),many=True)
+        courses.append(serializer.data)
+
+    return Response({"res":courses}, status=status.HTTP_200_OK)

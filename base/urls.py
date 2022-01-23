@@ -10,6 +10,7 @@ urlpatterns = [
     path('users/update/<str:pk>/', views.updateUser, name="updateDetails"),
     path('users/updatePicture/<str:pk>/', views.updateUserImg, name="updateImg"),
     path('users/updatePassword/<str:pk>/', views.updateUserPassword, name="updatePassword"),
+    path('users/getEnrolledCourses/<str:pk>/', views.getEnrolledCourses, name="enrolledCourses"),
     path('courses/',views.getCourses, name="courses"),
     path('courses/<str:pk>', views.getCourse, name='course'),
     path('faqs/',views.getFAQs, name="faqs"),

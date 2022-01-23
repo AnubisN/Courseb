@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Course, Blog, Review, FAQ, Testimonial, Gallery, User
+from .models import Course, Blog, Review, FAQ, Testimonial, Gallery, User, Category, EnrolledCourse, Message
 from .forms import UserCreationForm
 from django.contrib.auth.admin import UserAdmin
 
@@ -32,4 +32,7 @@ admin.site.register(Review)
 admin.site.register(FAQ)
 admin.site.register(Testimonial)
 admin.site.register(Gallery)
+admin.site.register(Category)
 admin.site.register(User, UserAdmin)
+admin.site.register(EnrolledCourse)
+admin.site.register(Message)
