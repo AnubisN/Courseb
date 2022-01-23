@@ -1,0 +1,61 @@
+@import "../../styles/variables.scss";
+
+.container {
+    width: 80%;
+    margin: 2em auto;
+
+    & h2 {
+        margin: 1em 0;
+        font-weight: 700;
+    }
+}
+
+.course {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    margin: 1.5em 0;
+    box-shadow: 0 0 15px rgba(60,78,100,0.15);
+
+    @include breakpoint (md) {
+        flex-direction: row;
+
+    }
+}
+
+.menu {
+    & svg {
+        margin: 1em;
+    }
+}
+
+.course__info {
+    display: flex;
+    flex-direction: column;
+
+    @include breakpoint (md) {
+        flex-direction: row;
+        align-items: center;
+
+    }
+
+    &__title {
+        margin: 0 1em;
+        font-weight: 500;
+        font-size: 0.8rem;
+    }
+
+    &__img {
+        width: 200px;
+        margin: 1em;
+
+        & img {
+            width: 100%;
+            height: 100%;
+    
+        }
+    }
+
+   
+}

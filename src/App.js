@@ -13,6 +13,7 @@ import ProfilePage from './pages/Profilepage/profilepage';
 import ProfilePagePassword from './pages/Profilepage/profilepagepassword';
 import ContactUsPage from './pages/ContactusPage/contactPage';
 import AboutUs from './pages/AboutusPage/aboutusPage';
+import EnrolledCourses from './pages/EnrolledCoursesPage/enrolledcourses';
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
       <Route path="/changePassword" element={<ProfilePagePassword />}/>
       <Route path="/contactus" element={<ContactUsPage />}/>
       <Route path="/aboutus" element={<AboutUs />} />
+      <Route path="/enrolledCourses" element={<EnrolledCourses />}/>
     </Routes>
     <Footer />
     </BrowserRouter>
