@@ -1,24 +1,20 @@
-import axios from 'axios';
 import React, {useEffect, useState} from 'react'
 import ReactPaginate from 'react-paginate';
+import { useDispatch, useSelector} from 'react-redux';
 import { AiFillCaretLeft, AiFillCaretRight } from 'react-icons/ai'
-import Card from '../../components/Cards/Card'
-import Container from '../../components/Container';
 import classes from './Blogpage.module.scss'
 import CurrentBlog from './currentBlog';
 import NextBlog from './nextBlog';
+import { listBlogs } from '../../actions/blogActions';
 
 function Blogpage() {
-    const [blogs, setBlogs] = useState([]);
+    const blogList = useSelector(state => state.blogList)
+    const { error, loading, blogs} = blogList 
     const [pageNumber, setPageNumber] = useState(0);
-
+    const dispatch = useDispatch()
     useEffect(() => {
-        async function fetchBlogs() {
-            const { data } = await axios.get(`/api/blogs/`)
-            setBlogs(data);
-        }
-        fetchBlogs();   
-    }, [])
+        dispatch(listBlogs())
+    }, [dispatch])
 
     const blogsPerPage = 3;
     const pagesVisited = pageNumber * blogsPerPage;
@@ -39,20 +35,27 @@ function Blogpage() {
 
 
     return (
-        <div className={classes.container}>
-            {displayBlogs}
-            <ReactPaginate 
-                previousLabel={<AiFillCaretLeft />}
-                nextLabel = {<AiFillCaretRight />}
-                pageCount={pageCount}
-                onPageChange={changePage}
-                containerClassName={classes.paginationBttns}
-                previousLinkClassName={classes.previousBttn}
-                nextLinkClassName={classes.nextBttn}
-                disabledClassName={classes.paginationDisabled}
-                activeClassName={classes.paginationActive}
-            />
-        </div>
+        <>
+            {   loading ? <h2>Loading...</h2>
+                : error ? <h3>{error}</h3>
+                :
+                <div className={classes.container}>
+                {displayBlogs}
+                <ReactPaginate 
+                    previousLabel={<AiFillCaretLeft />}
+                    nextLabel = {<AiFillCaretRight />}
+                    pageCount={pageCount}
+                    onPageChange={changePage}
+                    containerClassName={classes.paginationBttns}
+                    previousLinkClassName={classes.previousBttn}
+                    nextLinkClassName={classes.nextBttn}
+                    disabledClassName={classes.paginationDisabled}
+                    activeClassName={classes.paginationActive}
+                />
+                </div>
+            }
+        </>
+        
     )
 }
 

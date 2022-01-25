@@ -1,23 +1,20 @@
 import React, {useState, useEffect} from 'react'
-import axios from 'axios'
 import classes from './course.module.scss'
 import ReactPaginate from 'react-paginate';
 import Card from '../../components/Cards/Card'
 import { AiFillCaretDown, AiFillCaretLeft, AiFillCaretRight  } from 'react-icons/ai'
-
+import { useDispatch, useSelector } from 'react-redux'
+import { listCourse } from '../../actions/courseActions';
 
 function Coursepage() {
-    const [courses, setCourses] = useState([]); 
+    const coursesList = useSelector(state => state.courseList)
+    const { error, loading, courses} = coursesList 
     const [pageNumber, setPageNumber] = useState(0);
+    const dispatch = useDispatch()
 
     useEffect(() => {
-        async function fetchCourses() {
-            const { data } = await axios.get('/api/courses/')
-            setCourses(data);
-        }
-
-        fetchCourses();
-    }, [])
+        dispatch(listCourse())
+    }, [dispatch])
 
     const coursePerPage = 6;
     const pagesVisited = pageNumber * coursePerPage;
@@ -35,29 +32,35 @@ function Coursepage() {
     }
 
     return (
-        <div className={classes.container}>
-            <div className={classes.course__categories}>
-                <p>Categories</p>
-                <div className={classes.course__categories__icon}>
-                 <AiFillCaretDown />
+        <>
+            {
+                loading ? <h2>Loading...</h2>
+                : error ? <h3>{error}</h3>
+                :  <div className={classes.container}>
+                <div className={classes.course__categories}>
+                    <p>Categories</p>
+                    <div className={classes.course__categories__icon}>
+                     <AiFillCaretDown />
+                    </div>
                 </div>
-            </div>
-            <div className={classes.course__container}>
-               {displayCourses}
-            </div>
-
-            <ReactPaginate 
-                previousLabel={<AiFillCaretLeft />}
-                nextLabel = {<AiFillCaretRight />}
-                pageCount={pageCount}
-                onPageChange={changePage}
-                containerClassName={classes.paginationBttns}
-                previousLinkClassName={classes.previousBttn}
-                nextLinkClassName={classes.nextBttn}
-                disabledClassName={classes.paginationDisabled}
-                activeClassName={classes.paginationActive}
-            />
-        </div>
+                    <div className={classes.course__container}>
+                    {displayCourses}
+                    </div>
+        
+                    <ReactPaginate 
+                        previousLabel={<AiFillCaretLeft />}
+                        nextLabel = {<AiFillCaretRight />}
+                        pageCount={pageCount}
+                        onPageChange={changePage}
+                        containerClassName={classes.paginationBttns}
+                        previousLinkClassName={classes.previousBttn}
+                        nextLinkClassName={classes.nextBttn}
+                        disabledClassName={classes.paginationDisabled}
+                        activeClassName={classes.paginationActive}
+                    />
+                </div>
+            }
+        </>
     )
 }
 

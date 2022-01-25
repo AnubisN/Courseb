@@ -6,7 +6,7 @@ import Blogpage from './pages/Blogpage/Blogpage';
 import BlogSinglePage from './pages/Blogsinglepage';
 import CourseSinglePage from './pages/Coursesinglepage';
 import Coursepage from './pages/Coursepage/Coursepage';
-import Gallerpage from './pages/Gallerypage/Gallerpage';
+import Gallerypage from './pages/Gallerypage/Gallerypage';
 import SignupPage from './pages/SignupPage/signupPage';
 import LoginPage from './pages/LoginPage/loginPage';
 import ProfilePage from './pages/Profilepage/profilepage';
@@ -25,7 +25,7 @@ function App() {
       <Route path="/blogs/:id" element={<BlogSinglePage />} />
       <Route path="/courses/:id" element={<CourseSinglePage />}/>
       <Route path="/courses" element={<Coursepage />} />
-      <Route path="/gallery" element={<Gallerpage />}/>
+      <Route path="/gallery" element={<Gallerypage />}/>
       <Route path="/register" element={<SignupPage />}/>
       <Route path="/login" element={<LoginPage />}/>
       <Route path="/accountSettings" element={<ProfilePage />}/>

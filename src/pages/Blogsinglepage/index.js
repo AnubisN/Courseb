@@ -1,19 +1,20 @@
 import React, {useState, useEffect} from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import classes from './blogsinglepage.module.scss';
 import axios from 'axios'
 import { useParams } from 'react-router-dom';
+import { listBlogDetail } from '../../actions/blogActions';
 
 function BlogSinglePage() {
     let params = useParams();
-    const [blog, setBlog] = useState([]);
+    const dispatch = useDispatch()
+    const blogDetails = useSelector(state => state.blogDetails)
+    const { loading, error, blog} = blogDetails
+
 
     useEffect(() => {
-        async function fetchBlog() {
-            const { data } = await axios.get(`/api/blogs/${params.id}`)
-            setBlog(data);
-        }
-        fetchBlog();   
-    },[])
+        dispatch(listBlogDetail(params.id))
+    },[dispatch, params])
 
     let actualDate = String(new Date(blog.createdAt)).split(" ");
 

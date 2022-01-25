@@ -18,6 +18,7 @@
         margin: 25px;
         display: flex;
         justify-content: space-between;
+        transition: all .2s ease;
 
         &__opened {
             margin: 25px;
@@ -26,9 +27,11 @@
         }
 
         &__content {
+            transition: all .2s ease;
             &__icon {
                 font-size: 22px;
                 color:$secondary;
+                transition: all .2s ease;
 
                 &:hover {
                     cursor: pointer;
@@ -40,5 +43,11 @@
 
     &__title {
         color: $secondary;
+    }
+}
+
+.courseInfo {
+    & p {
+        transition: all .2s ease;
     }
 }
