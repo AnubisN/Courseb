@@ -22,7 +22,6 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         serializer = UserSerializerWithToken(self.user).data
         for k, v in serializer.items():
             data[k] = v
-
         return data
 
 class MyTokenObtainPairView(TokenObtainPairView):
@@ -58,15 +57,15 @@ def getUserProfile(request):
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
-def getUserDetails(request, pk):
-    user = User.objects.get(id=pk)
+def getUserDetails(request):
+    user = request.user
     serializer = UserSerializer(user, many=False)
     return Response(serializer.data)
 
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
-def updateUserImg(request,pk):
-    user = User.objects.get(id=pk)
+def updateUserImg(request):
+    user = request.user
     serializer = UserSerializerWithToken(user,many=False)
 
     profilePicture = request.FILES['profilePicture']
@@ -78,28 +77,26 @@ def updateUserImg(request,pk):
 
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
-def updateUser(request,pk):
-    user = User.objects.get(id=pk)
+def updateUser(request):
+    user = request.user
     serializer = UserSerializerWithToken(user,many=False)
 
     data = request.data
-    print(data)
     user.first_name = data['firstName']
     user.last_name = data['lastName']
     user.address = data['address']
     user.job = data['job']
     user.phoneNumber = data['phoneNumber']
-    user.email = data['email']
     user.save()
 
-    serializer = UserSerializer(user, many=False)
+    serializer = UserSerializerWithToken(user, many=False)
 
     return Response(serializer.data)
 
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
-def updateUserPassword(request,pk):
-    user = User.objects.get(id=pk)
+def updateUserPassword(request):
+    user = request.user
     serializer = UserPasswordSerializer(user,many=False)
     data = request.data
     password = data['password']
@@ -158,12 +155,12 @@ def getTestimonials(request):
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
-def getEnrolledCourses(request,pk):
-    enrolledCourses = EnrolledCourse.objects.select_related('course').filter(user=pk)
+def getEnrolledCourses(request):
+    user = request.user
+    enrolledCourses = EnrolledCourse.objects.filter(user=user)
     courses = []
-
-    for item in enrolledCourses.iterator():
-        serializer = CourseSerializer(Course.objects.filter(name=item.course),many=True)
+    for course in enrolledCourses:
+        serializer = EnrolledCourseSerializer(course, many=False)
         courses.append(serializer.data)
-
-    return Response({"res":courses}, status=status.HTTP_200_OK)
+    res = {"courses": courses}
+    return Response(res, status=status.HTTP_200_OK)

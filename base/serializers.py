@@ -5,6 +5,16 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from .models import Blog, Course, FAQ, Gallery, Testimonial, User, EnrolledCourse
 
 class CourseSerializer(serializers.ModelSerializer):
+    instructor = serializers.SerializerMethodField(read_only=True)
+    class Meta:
+        model = Course
+        fields = '__all__'
+
+    def get_instructor(self, obj):
+        serializer = UserSerializer(obj.instructor, many=False)
+        return serializer.data
+
+class CourseOnlySerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
         fields = '__all__'
@@ -41,11 +51,11 @@ class UserSerializerWithToken(UserSerializer):
 
     class Meta:
         model = User
-        fields = ['id','_id','username','email','name','isAdmin','isStudent','token','profilePicture']
+        fields = ['id','_id','username','email','last_name','first_name','isAdmin','isStudent','token','profilePicture','address','job']
 
     def get_token(self,obj):
         token = RefreshToken.for_user(obj)
-        return str(token)
+        return str(token.access_token)
 
 class FAQSerializer(serializers.ModelSerializer):
     class Meta:
@@ -58,9 +68,14 @@ class TestimonialSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class BlogSerializer(serializers.ModelSerializer):
+    user = serializers.SerializerMethodField(read_only=True)
     class Meta:
         model = Blog
         fields = '__all__'
+
+    def get_user(self, obj):
+        serializer = UserSerializer(obj.user, many=False)
+        return serializer.data
 
 class GallerySerializer(serializers.ModelSerializer):
     class Meta:
@@ -68,6 +83,12 @@ class GallerySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class EnrolledCourseSerializer(serializers.ModelSerializer):
+    course = serializers.SerializerMethodField(read_only=True)
     class Meta:
         model = EnrolledCourse
         fields = '__all__'
+
+    def get_course(self,obj):
+        course = obj.course
+        serializer = CourseOnlySerializer(course, many=False)
+        return serializer.data

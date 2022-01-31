@@ -140,3 +140,6 @@ class EnrolledCourse(models.Model):
     _id = models.AutoField(primary_key=True, editable=False)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True)
     course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True)
+
+    # def __str__(self):
+    #     return self.user
