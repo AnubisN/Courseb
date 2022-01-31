@@ -17,7 +17,7 @@ function CourseCard({ course }) {
                         {name.slice(0,40) + "...."}
                     </h3>
                     <p className={classes.card__content__desc}>
-                        {description.slice(0,70) + "....."}
+                        {description.slice(0,65) + "....."}
                     </p>
                     <div className={classes.card__content__stars}>
                             <AiFillStar />
@@ -27,7 +27,9 @@ function CourseCard({ course }) {
                             <AiFillStar />
                     </div>
                     <Button type="primary__small__body">
+                        <Link to={`/courses/${_id}`}>
                             Learn More   
+                        </Link>
                     </Button>
                 </div>
             </div>

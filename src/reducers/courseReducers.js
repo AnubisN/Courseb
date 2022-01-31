@@ -5,7 +5,11 @@ import {
 
     COURSE_DETAILS_REQUEST,
     COURSE_DETAILS_SUCCESS,
-    COURSE_DETAILS_FAIL
+    COURSE_DETAILS_FAIL,
+
+    ENROLLED_COURSE_REQUEST,
+    ENROLLED_COURSE_SUCCESS,
+    ENROLLED_COURSE_FAIL,
 } from '../constants/courseConstants'
 
 export const courseListReducer = (state = { courses:[] }, action) => {
@@ -24,7 +28,7 @@ export const courseListReducer = (state = { courses:[] }, action) => {
     }
 }
 
-export const courseDetailsReducer = (state = { course: {reviews:[]} }, action) => {
+export const courseDetailsReducer = (state = { course: {reviews:[],instructor:{}} }, action) => {
     switch(action.type) {
         case COURSE_DETAILS_REQUEST:
             return {loading:true, ...state}
@@ -34,6 +38,22 @@ export const courseDetailsReducer = (state = { course: {reviews:[]} }, action) =
         
         case COURSE_DETAILS_FAIL:
             return {loading: false, error: action.payload}
+
+        default:
+            return state
+    }
+}
+
+export const enrolledCoursesReducer = (state = { courses: []}, action) => {
+    switch(action.type) {
+        case ENROLLED_COURSE_REQUEST:
+            return {loading:true, ...state}
+
+        case ENROLLED_COURSE_SUCCESS:
+            return {loading: false, courses: action.payload}
+        
+        case ENROLLED_COURSE_FAIL:
+            return {loading: false, courses: action.payload}
 
         default:
             return state

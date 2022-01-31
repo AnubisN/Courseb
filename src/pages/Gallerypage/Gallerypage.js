@@ -3,6 +3,8 @@ import classes from './gallery.module.scss'
 import { AiOutlineClose } from "react-icons/ai";
 import { listGallerys } from '../../actions/galleryActions';
 import { useDispatch, useSelector } from 'react-redux'
+import Alert from '../../components/Alert/Alert'
+import Loader from '../../components/Loader/loader';
 
 function Gallerypage() {
     const galleryList = useSelector(state => state.galleryList)
@@ -23,8 +25,8 @@ function Gallerypage() {
     return (
         <>
         {
-             loading ? <h2>Loading...</h2>
-             : error ? <h3>{error}</h3>
+             loading ? <Loader />
+             : error ? <Alert message={error} variant='danger'/>
              : <div className={classes.container}>
                     <div className={model ? classes.model__open : classes.model}>
                         <img src={tempimgSrc} />

@@ -24,10 +24,10 @@ export const blogListReducer = (state = { blogs:[] }, action) => {
     }
 }
 
-export const blogDetailsReducer = (state = { blog:[] }, action) => {
+export const blogDetailsReducer = (state = { blog:{user:{}} }, action) => {
     switch(action.type) {
         case BLOG_DETAILS_REQUEST:
-            return {loading:true, blog: []}
+            return {loading:true, ...state}
 
         case BLOG_DETAILS_SUCCESS:
             return {loading: false, blog: action.payload}

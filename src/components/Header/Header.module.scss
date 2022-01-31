@@ -3,7 +3,7 @@
 .user {
     &__name {
         font-weight: 500;
-        color: #fff;
+        color: $primary !important;
 
         @include breakpoint (md) {
             color: $dark;
@@ -17,8 +17,15 @@
     }
 
     & img {
-        margin: 0 10px;
         border-radius: 50%;
+        background: #fff !important;
+        margin: 0 10px !important;
+        object-fit: cover;
+        @include breakpoint(md) {
+            margin: 0 10px !important;
+            background: none !important;
+            object-fit: cover !important;
+        }
     }
 
     & a {
@@ -194,4 +201,8 @@
             }
         }
     }
+}
+
+.main_nav_active {
+    color: $primary !important;
 }

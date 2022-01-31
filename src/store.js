@@ -1,11 +1,12 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
-import { courseDetailsReducer, courseListReducer } from './reducers/courseReducers';
+import { courseDetailsReducer, courseListReducer, enrolledCoursesReducer } from './reducers/courseReducers';
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { faqListReducer } from './reducers/faqReducers';
 import { testimonialListReducer } from './reducers/testimonialReducers';
 import { blogDetailsReducer, blogListReducer } from './reducers/blogReducers';
 import { galleryListReducer } from './reducers/galleryReducers';
+import { userPasswordReducer, userLoginReducer, userRegisterReducer, userDetailsReducer, userUpdateProfileReducer, userProfilePictureReducer } from './reducers/userReducers';
 
 const reducer = combineReducers({
     courseList: courseListReducer,
@@ -15,9 +16,21 @@ const reducer = combineReducers({
     blogList: blogListReducer,
     blogDetails: blogDetailsReducer,
     galleryList: galleryListReducer,
+    userLogin: userLoginReducer,
+    userRegister: userRegisterReducer,
+    userDetails: userDetailsReducer,
+    userUpdateProfile: userUpdateProfileReducer,
+    userUpdatePicture: userProfilePictureReducer,
+    userUpdatePassword: userPasswordReducer,
+    enrolledCourses: enrolledCoursesReducer,
 })
 
-const initialState = {}
+const userInfoFromStorage = localStorage.getItem('userInfo') ?
+    JSON.parse(localStorage.getItem('userInfo')) : null
+
+const initialState = {
+    userLogin: { userInfo: userInfoFromStorage }
+}
 
 const middlware = [thunk]
 

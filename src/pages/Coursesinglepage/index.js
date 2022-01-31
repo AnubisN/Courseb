@@ -6,12 +6,16 @@ import Button from '../../components/Button/Button';
 import Container from '../../components/Container';
 import { useParams } from 'react-router-dom';
 import { listCourseDetails } from '../../actions/courseActions';
+import Alert from '../../components/Alert/Alert'
+import Loader from '../../components/Loader/loader';
+import { Link } from 'react-router-dom';
 
 function CourseSinglePage() {
     let params = useParams();
     const dispatch = useDispatch()
     const courseDetails = useSelector(state => state.courseDetails)
     const { loading, error, course} = courseDetails
+    const { instructor } = course
 
     useEffect(() => {
         dispatch(listCourseDetails(params.id))
@@ -20,8 +24,8 @@ function CourseSinglePage() {
     return (
         <>
             {
-                   loading ? <h2>Loading...</h2>
-                   : error ? <h3>{error}</h3>
+                   loading ? <Loader />
+                   : error ? <Alert message={error} variant='danger'/>
                    :<div className={classes.container}>
                     <div className={classes.container__img}>
                         <img src={`${course.image}`} alt="Course image" />
@@ -44,12 +48,15 @@ function CourseSinglePage() {
                                     </div>
                                 </div>
                                 <p className={classes.course__container__price}>{"Rs. "+ course.price}</p>
-                                <Button 
-                                    className={classes.button}
-                                    type="primary__body"
-                                >
-                                Enroll Now
-                                </Button>
+                                <Link to={course.isAvailable ? "/checkout" : ""}>
+                                    <Button 
+                                        className={classes.button}
+                                        type="primary__body"
+                                        disabled = {!course.isAvailable}
+                                    >
+                                        Enroll Now
+                                    </Button>
+                                </Link>
                             </div>
     
                         </Container>
@@ -91,11 +98,11 @@ function CourseSinglePage() {
                         <h2 className={classes.course__content__title}>Instructor</h2>
                         <div className={classes.course__instructor}>
                             <div className={classes.course__instructor__img}>
-                                <img src="amyGoldberg.jpg" />
+                                <img src={`${course.instructor.profilePicture}`} />
                             </div>
                             <div className={classes.course__instructor__details}>
-                                <p className={classes.course__instructor__details__name}>Amy Maharjan</p>
-                                <p className={classes.course__instructor__details__status}>Senior Backend Developer, LearpFrog</p>
+                                <p className={classes.course__instructor__details__name}>{instructor.first_name + " " + instructor.last_name}</p>
+                                <p className={classes.course__instructor__details__status}>{instructor.job}</p>
                             </div>
                         </div>
                         </div>

@@ -1,44 +1,58 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import classes from './profilepage.module.scss'
 import { Link } from 'react-router-dom'
 import { AiFillHome } from 'react-icons/ai'
 import { RiLockFill } from 'react-icons/ri'
 import Button from '../../components/Button/Button'
-import axios from 'axios'
-import { token } from './token'
-import { findAllInRenderedTree } from 'react-dom/cjs/react-dom-test-utils.production.min'
+import {useSelector, useDispatch} from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { getUserDetails, updateUserProfile, updateUserProfilePicture } from '../../actions/userActions'
+import { USER_UPDATE_PROFILE_RESET } from '../../constants/userConstants'
+import Alert from '../../components/Alert/Alert'
+import Loader from '../../components/Loader/loader'
 
 function ProfilePage() {
-    const [userInfo,setUserInfo] = useState([]);
+    let navigate = useNavigate()
+    let fileInput = useRef();
+    const dispatch = useDispatch()
+    const userDetails = useSelector(state => state.userDetails)
+    const {error, loading, user} = userDetails
+
+    const userLogin = useSelector(state => state.userLogin)
+    const {userInfo} = userLogin
+
+    const userUpdateProfile = useSelector(state => state.userUpdateProfile)
+    const { success } = userUpdateProfile
+    const userUpdatePicture = useSelector(state => state.userUpdatePicture)
+    const { image } = userUpdatePicture
+
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('')
     const [phoneNumber, setPhoneNumber] = useState('')
     const [address,setAddress] = useState('')
     const [job, setJob] = useState('')
+    const [staticPicture, setStaticPicture] = useState('')
     const [profilePicture,setProfilePicture] = useState('')
-    let name = ''
     
     useEffect(() => {
-        const config = {
-            headers: {
-                "Authorization": "Bearer " + token
+        if(!userInfo) {
+            navigate("/login")
+        } else {
+            if(!user || !user.first_name || success || image) {
+                dispatch({type:USER_UPDATE_PROFILE_RESET})
+                dispatch(getUserDetails(userInfo.id))
+            } else {
+                setFirstName(user.first_name)
+                setLastName(user.last_name)
+                setEmail(user.email)
+                setPhoneNumber(user.phoneNumber)
+                setJob(user.job)
+                setAddress(user.address)
+                setStaticPicture(user.profilePicture)
             }
         }
-        async function fetchDetails() {
-            const { data } = await axios.get(`api/users/profileDetails/6/`, config)
-            setUserInfo(data);
-            name = data.first_name + ' ' + data.last_name
-            setFirstName(data.first_name)
-            setLastName(data.last_name)
-            setEmail(data.email)
-            setPhoneNumber(data.phoneNumber)
-            setAddress(data.address)
-            setJob(data.job)
-            setProfilePicture(data.profilePicture)
-        }
-        fetchDetails();   
-    }, [])
+    }, [navigate, userInfo, user, success])
 
     function getExtension(filename) {
         var parts = filename.split('.');
@@ -55,53 +69,48 @@ function ProfilePage() {
             default:
                 return false
         }
-        return false
     }
 
-    const submitHandler = async (e) => {
+    const submitHandler = e => {
         e.preventDefault();
-        let imgObj = Object(profilePicture)
-        let image = isImage(imgObj[0].name)
-        if(image) {
-            const config = {
-                headers: {
-                    "Authorization": "Bearer " + token,
-                    "Content-Type": "multipart/form-data"
+        if(typeof profilePicture === "object") {
+            let imgObj = Object(profilePicture)
+            let name = imgObj[0].name
+            if(name) {
+                let image = isImage(imgObj[0].name)
+                if(image) {
+                    let formData = new FormData();
+                    formData.append('profilePicture',imgObj[0]);
+                    dispatch(updateUserProfilePicture(formData))
                 }
             }
-
-            const anotherConfig = {
-                headers: {
-                    "Authorization": "Bearer " + token
-                }
-            }
-
-            let formData = new FormData();
-            formData.append('profilePicture',imgObj[0]);
-
-            for(var value of formData.values()) {
-                console.log(value);
-            }
-            await axios.put('/api/users/updatePicture/6/',
-                formData,
-                config
-            )
-            await axios.put('/api/users/update/6/',
-                {"firstName":firstName,"lastName":lastName,"email":email,"job":job,"address":address,"phoneNumber":phoneNumber},
-                anotherConfig
-            )
+        }
+        else {
+            dispatch(updateUserProfile({
+                'id':user._id,
+                'firstName':firstName,
+                'lastName':lastName,
+                'email':email,
+                'phoneNumber':phoneNumber,
+                'address':address,
+                'job':job
+            }))
         }
     }
 
     return (
         <section>
-            <div className={classes.container}>
+            {
+                loading ? <Loader />
+                : error ? <Alert message={error} variant='danger'/>
+                :
+                <div className={classes.container}>
                 <div className={classes.container__box}>
                     <div className={classes.container__box__profile__tab}>
                         <div className={classes.container__box__profile__tab__userContent}>
                             <div className={classes.container__box__profile__tab__userContent__img}>
-                                <img src={`${userInfo.profilePicture}`}/>
-                                <h3>{firstName + " " + lastName}</h3>
+                                <img src={`${staticPicture}`}/>
+                                <h3>{user ? user.first_name + " " + user.last_name: null}</h3>
                             </div>
 
                             <div className={classes.container__box__profile__tab__settings}>
@@ -149,7 +158,6 @@ function ProfilePage() {
                                             type="email" 
                                             name="" 
                                             value={email}
-                                            onChange={(e) => setEmail(e.target.value)}
                                             required/>
                                     </div>
                                     <div className={classes.form__input}>
@@ -189,7 +197,8 @@ function ProfilePage() {
                                         <span>Upload new profile picture</span>
                                         <input 
                                             type="file" 
-                                            name="" 
+                                            name=""
+                                            ref={fileInput}
                                             onChange={(e) => setProfilePicture(e.target.files)}
                                             />
                                     </div>
@@ -210,6 +219,7 @@ function ProfilePage() {
                     </div>
                 </div>
             </div>
+            }
         </section>
     )
 }

@@ -6,6 +6,8 @@ import classes from './Blogpage.module.scss'
 import CurrentBlog from './currentBlog';
 import NextBlog from './nextBlog';
 import { listBlogs } from '../../actions/blogActions';
+import Alert from '../../components/Alert/Alert'
+import Loader from '../../components/Loader/loader';
 
 function Blogpage() {
     const blogList = useSelector(state => state.blogList)
@@ -19,25 +21,26 @@ function Blogpage() {
     const blogsPerPage = 3;
     const pagesVisited = pageNumber * blogsPerPage;
 
-    const displayBlogs = blogs
+    const displayBlogs = blogs 
+        ? blogs
         .slice(pagesVisited, pagesVisited + blogsPerPage)
         .map((blog, i) => {
             return (i == 0) 
             ? <CurrentBlog key={blog._id} blog={blog} />
             : <NextBlog key={blog._id} blog={blog} />
         })
+        : null
     
-    const pageCount = Math.ceil(blogs.length / blogsPerPage)
+    const pageCount = blogs ? Math.ceil(blogs.length / blogsPerPage) : 0
     
     const changePage = ({ selected }) => {
         setPageNumber(selected);
     }
 
-
     return (
         <>
-            {   loading ? <h2>Loading...</h2>
-                : error ? <h3>{error}</h3>
+            {   loading ? <Loader />
+                : error ? <Alert message={error} variant='danger'/>
                 :
                 <div className={classes.container}>
                 {displayBlogs}

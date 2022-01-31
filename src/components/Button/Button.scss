@@ -82,3 +82,16 @@
     border-radius: 5px;
     border: none;
 }
+
+.button__disabled__body {
+    outline: none;
+    width: 165px;
+    height: 56px;
+    cursor:not-allowed;
+    background-color: silver !important;
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 5px;
+    border: none;
+}

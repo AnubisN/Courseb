@@ -1,4 +1,3 @@
-import axios from 'axios'
 import {
     TESTIMONIAL_LIST_REQUEST,
     TESTIMONIAL_LIST_SUCCESS,

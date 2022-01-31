@@ -1,43 +1,35 @@
 import React, {useState, useEffect} from 'react';
 import classes from './enrolledcourses.module.scss'
 import { AiOutlineMenu } from 'react-icons/ai'
-import axios from 'axios';
-import { token } from '../Profilepage/token'
+import { useSelector, useDispatch } from 'react-redux'
+import { listEnrolledCourses } from '../../actions/courseActions';
+import Alert from '../../components/Alert/Alert';
+import Loader from '../../components/Loader/loader';
 
 function EnrolledCourses() {
-    const [enrolledCourses, setEnrolledCourses] = useState([])
+    const enrolledCourses = useSelector(state => state.enrolledCourses)
+    const {error, loading, courses} = enrolledCourses
+    const dispatch = useDispatch()
     useEffect(() => {
-        const config = {
-            headers: {
-                "Authorization": "Bearer " + token
-            }
-        }
-        async function fetchData() {
-            const { data } = await axios.get(`api/users/getEnrolledCourses/6/`, config)
-            let newArr = data.res;
-            let dataArr = []
-            newArr.map(el => 
-                dataArr.push(...el)
-            )
-            setEnrolledCourses(dataArr)
-        }
-        fetchData();   
-    }, [])
+        dispatch(listEnrolledCourses())
+    }, [dispatch])
     return (
       <section className={classes.container}>
+          {loading && <Loader />}
+          {error && <Alert message={error} variant='danger'/>}
           {
-              enrolledCourses.length == 0 ?
+              courses.length == 0 ?
               <h2>You have not enrolled to any courses</h2>
               :
-              enrolledCourses.map((course,idx) => (
+              courses.map((course,idx) => (
                 <div key={course._id} className={classes.course}>
                     <div className={classes.course__info}>
                         <div className={classes.course__info__img}>
-                            <img src={`${course.image}`} alt={`${course.name}`}/>
+                            <img src={`${course.course.image}`} alt={`${course.course.name}`}/>
                         </div>
 
                         <div className={classes.course__info__title}>
-                            <h3>{course.name}</h3>
+                            <h3>{course.course.name}</h3>
                         </div>
                     
                     </div>

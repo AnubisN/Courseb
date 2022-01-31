@@ -1,19 +1,22 @@
 import React, {useState, useEffect} from 'react'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import classes from './Header.module.scss';
-
+import { useDispatch, useSelector } from 'react-redux';
 import { BiMenuAltRight } from "react-icons/bi";
 import { AiOutlineClose } from "react-icons/ai";
 import Button from '../Button/Button';
+import { logout } from '../../actions/userActions';
 
-function HeaderUserInfo() {
+function HeaderUserInfo({ userInfo }) {
+    const { first_name, profilePicture } = userInfo;
+    const dispatch = useDispatch()
     const [toggle,setToggle] = useState(false)
     const menuToggle = () => {
         setToggle(!toggle)
     }
 
-    const logOut = () => {
-        localStorage.removeItem('userInfo');
+    const logoutHandler = () => {
+        dispatch(logout())
     }
 
     return(
@@ -21,23 +24,23 @@ function HeaderUserInfo() {
             <ul>
                 <li>
                     <a onClick={menuToggle}>
-                        <p className={classes.user__name}>Lalit Mah...</p>
-                        <img src="liveInteraction.jpg" width="40" height="40"/>
+                        <p className={classes.user__name}>{first_name}</p>
+                        <img src={`${profilePicture}`} width="50" height="50"/>
                     </a>
                     <div className={classes.dropdown} style={{display: toggle ? 'block' : 'none'}}>
                         <ul>
                             <li>
-                                <Link to="/accountSettings">
+                                <Link to="/accountSettings" onClick={menuToggle}>
                                     Profile
                                 </Link>
                             </li>
                             <li>
-                                <a>
+                                <Link to="enrolledCourses" onClick={menuToggle}>
                                     Courses
-                                </a>
+                                </Link>
                             </li>
                             <li>
-                                <Link to="/" onClick={logOut}>
+                                <Link to="/" onClick={logoutHandler}>
                                     Logout
                                 </Link>
                             </li>
@@ -67,7 +70,8 @@ function HeaderButtons() {
 }
 
 function Header() {
-    const [loggedIn, setLoggedIn] = useState({})
+    const userLogin = useSelector(state => state.userLogin)
+    const { userInfo } = userLogin
     const [menuOpen, setMenuOpen] = useState(false);
     const [size, setSize] = useState({
         width: undefined,
@@ -75,8 +79,6 @@ function Header() {
     })
 
     useEffect(() => {
-        setLoggedIn(localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null)
-
         const handleResize = () => {
             setSize({
                 width: window.innerWidth,
@@ -126,8 +128,8 @@ function Header() {
                         </li>
                     </ul>
                     {
-                        loggedIn ? 
-                        <HeaderUserInfo />
+                        userInfo ? 
+                        <HeaderUserInfo userInfo = {userInfo} />
                         :
                         <HeaderButtons />
                     }

@@ -10,6 +10,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { listCourse } from '../../actions/courseActions'
 import { listFAQs } from '../../actions/faqActions'
 import { listTestimonials } from '../../actions/testimonialActions'
+import Loader from '../../components/Loader/loader'
+import Alert from '../../components/Alert/Alert'
 
 function Homepage() {
     const coursesList = useSelector(state => state.courseList)
@@ -29,9 +31,10 @@ function Homepage() {
     return (
         <>
         {
-            loading ? <h2>Loading...</h2>
-                : error ? <h3>{error}</h3>
-                :    <>
+            loading ? <Loader />
+                : error ? <Alert message={error} variant='danger'/>
+                :   
+                <>
                         <section className={classes.container}>
                                 <div className={classes.hero__container}>
                                     <div className={classes.hero__container__content}>
@@ -45,7 +48,11 @@ function Homepage() {
                                         <img src="girl.png"/>
                                     </div>
                                 </div>
-                            </section>
+
+                                <div className={classes.container__bg}>
+
+                                </div>
+                        </section>
                     
                         <PopularCourses courses = {courses} />
                         <WhyCoursebSection coursebReasons={coursebReasons} />

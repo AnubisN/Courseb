@@ -5,13 +5,16 @@ import Card from '../../components/Cards/Card'
 import { AiFillCaretDown, AiFillCaretLeft, AiFillCaretRight  } from 'react-icons/ai'
 import { useDispatch, useSelector } from 'react-redux'
 import { listCourse } from '../../actions/courseActions';
+import Alert from '../../components/Alert/Alert'
+import Loader from '../../components/Loader/loader';
 
 function Coursepage() {
     const coursesList = useSelector(state => state.courseList)
     const { error, loading, courses} = coursesList 
+    const [message, setMessage] = useState('');
     const [pageNumber, setPageNumber] = useState(0);
     const dispatch = useDispatch()
-
+    
     useEffect(() => {
         dispatch(listCourse())
     }, [dispatch])
@@ -19,13 +22,14 @@ function Coursepage() {
     const coursePerPage = 6;
     const pagesVisited = pageNumber * coursePerPage;
 
-    const displayCourses = courses
-        .slice(pagesVisited, pagesVisited + coursePerPage)
+    const displayCourses = courses 
+        ? courses.slice(pagesVisited, pagesVisited + coursePerPage)
         .map(course => (
             <Card key={course._id} course={course} />
-        ))
+        )) 
+        : null
     
-    const pageCount = Math.ceil(courses.length / coursePerPage)
+    const pageCount =  courses ? Math.ceil(courses.length / coursePerPage) : 0
     
     const changePage = ({ selected }) => {
         setPageNumber(selected);
@@ -34,9 +38,10 @@ function Coursepage() {
     return (
         <>
             {
-                loading ? <h2>Loading...</h2>
-                : error ? <h3>{error}</h3>
-                :  <div className={classes.container}>
+                loading ? <Loader />
+                : error ? <Alert message={error} variant='danger'/>
+                :  
+                <div className={classes.container}>
                 <div className={classes.course__categories}>
                     <p>Categories</p>
                     <div className={classes.course__categories__icon}>
