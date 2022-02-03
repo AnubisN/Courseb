@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django_extensions',
 
     'base.apps.BaseConfig',
+    'post.apps.PostConfig',
    
 ]
 

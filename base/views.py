@@ -1,8 +1,3 @@
-from email import message
-from http.client import ResponseNotReady
-from tabnanny import check
-from django.shortcuts import render
-from django.http import JsonResponse
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
@@ -157,6 +152,24 @@ def getTestimonials(request):
 @permission_classes([IsAuthenticated])
 def getEnrolledCourses(request):
     user = request.user
+    enrolledCourses = EnrolledCourse.objects.filter(user=user)
+    courses = []
+    for course in enrolledCourses:
+        serializer = EnrolledCourseSerializer(course, many=False)
+        courses.append(serializer.data)
+    res = {"courses": courses}
+    return Response(res, status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def updateEnrolledCourses(request,pk):
+    user = request.user
+    course = Course.objects.get(_id=pk)
+    enrolledCourse = EnrolledCourse.objects.create(
+        user = user,
+        course = course
+    )
     enrolledCourses = EnrolledCourse.objects.filter(user=user)
     courses = []
     for course in enrolledCourses:

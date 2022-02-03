@@ -1,7 +1,6 @@
 from django.urls import path
 from . import views
 
-
 urlpatterns = [
     path('users/login/', views.MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('users/register/', views.registerUser, name='register'),
@@ -11,6 +10,7 @@ urlpatterns = [
     path('users/updatePicture/', views.updateUserImg, name="updateImg"),
     path('users/updatePassword/', views.updateUserPassword, name="updatePassword"),
     path('users/getEnrolledCourses/', views.getEnrolledCourses, name="enrolledCourses"),
+    path('users/updateEnrolledCourses/<str:pk>/', views.updateEnrolledCourses, name="updateEnrolledCourses"),
     path('courses/',views.getCourses, name="courses"),
     path('courses/<str:pk>/', views.getCourse, name='course'),
     path('faqs/',views.getFAQs, name="faqs"),
