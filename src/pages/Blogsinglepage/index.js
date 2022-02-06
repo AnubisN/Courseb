@@ -48,8 +48,8 @@ function BlogSinglePage() {
                     </div>
                     <div className={classes.blog__container__description__author__details}>
                         <p>Written by</p>
-                        <p className={classes.blog__container__description__author__details__name}>{user.email == "courseb@gmail.com" ? "Courseb" : user.first_name + " " + user.last_name}</p>
-                        <p>{user.email == "courseb@gmail.com" ? "Admin" : user.job}</p>
+                        <p className={classes.blog__container__description__author__details__name}>{user.username == "courseb" ? "Courseb" : user.first_name + " " + user.last_name}</p>
+                        <p>{user.username == "courseb" ? "Admin" : user.job}</p>
                     </div>
                 </div>
             </div>

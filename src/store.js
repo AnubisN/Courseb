@@ -1,12 +1,13 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
-import { courseDetailsReducer, courseListReducer, enrolledCoursesReducer } from './reducers/courseReducers';
+import { checkoutCourseReducer, courseDetailsReducer, courseListReducer, coursePostsReducer, enrolledCoursesReducer } from './reducers/courseReducers';
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { faqListReducer } from './reducers/faqReducers';
 import { testimonialListReducer } from './reducers/testimonialReducers';
 import { blogDetailsReducer, blogListReducer } from './reducers/blogReducers';
 import { galleryListReducer } from './reducers/galleryReducers';
 import { userPasswordReducer, userLoginReducer, userRegisterReducer, userDetailsReducer, userUpdateProfileReducer, userProfilePictureReducer } from './reducers/userReducers';
+import { cartReducer } from './reducers/cartReducers';
 
 const reducer = combineReducers({
     courseList: courseListReducer,
@@ -23,6 +24,8 @@ const reducer = combineReducers({
     userUpdatePicture: userProfilePictureReducer,
     userUpdatePassword: userPasswordReducer,
     enrolledCourses: enrolledCoursesReducer,
+    cart: cartReducer,
+    coursePosts: coursePostsReducer,
 })
 
 const userInfoFromStorage = localStorage.getItem('userInfo') ?

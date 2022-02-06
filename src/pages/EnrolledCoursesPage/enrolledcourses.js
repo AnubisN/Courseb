@@ -5,12 +5,19 @@ import { useSelector, useDispatch } from 'react-redux'
 import { listEnrolledCourses } from '../../actions/courseActions';
 import Alert from '../../components/Alert/Alert';
 import Loader from '../../components/Loader/loader';
+import { useNavigate, Link } from 'react-router-dom';
 
 function EnrolledCourses() {
+    let navigate = useNavigate();
     const enrolledCourses = useSelector(state => state.enrolledCourses)
     const {error, loading, courses} = enrolledCourses
+    const userLogin = useSelector(state => state.userLogin)
+    const { userInfo } = userLogin
     const dispatch = useDispatch()
     useEffect(() => {
+        if(!userInfo) {
+            navigate("/login");
+        }
         dispatch(listEnrolledCourses())
     }, [dispatch])
     return (
@@ -29,7 +36,7 @@ function EnrolledCourses() {
                         </div>
 
                         <div className={classes.course__info__title}>
-                            <h3>{course.course.name}</h3>
+                            <h3><Link to={`/coursepost/${course.course._id}`}>{course.course.name}</Link></h3>
                         </div>
                     
                     </div>

@@ -1,32 +1,52 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import classes from './courseSingle.module.scss'
 import { AiFillStar } from 'react-icons/ai';
 import Button from '../../components/Button/Button';
 import Container from '../../components/Container';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { listCourseDetails } from '../../actions/courseActions';
 import Alert from '../../components/Alert/Alert'
 import Loader from '../../components/Loader/loader';
 import { Link } from 'react-router-dom';
+import { addToCart } from '../../actions/courseActions';
 
 function CourseSinglePage() {
     let params = useParams();
+    let navigate = useNavigate();
     const dispatch = useDispatch()
     const courseDetails = useSelector(state => state.courseDetails)
+    const userLogin = useSelector(state => state.userLogin)
+    const { userInfo } = userLogin
     const { loading, error, course} = courseDetails
     const { instructor } = course
+    const [message, setMessage] = useState("")
 
     useEffect(() => {
         dispatch(listCourseDetails(params.id))
     },[dispatch, params])
 
+    const onLinkClick = (id, available) => {
+        if(!userInfo) {
+            setMessage("You need to be logged in to enroll for a course.");
+        } 
+        else if(!available) {
+            navigate('');
+        }
+        else {
+            navigate(`/checkout/${id}`);
+        }
+    }
+
     return (
         <>
+            {message && <Alert message={message} variant='danger'/>}
             {
                    loading ? <Loader />
                    : error ? <Alert message={error} variant='danger'/>
-                   :<div className={classes.container}>
+                   :
+                   <div>
+                   <div className={classes.container}>
                     <div className={classes.container__img}>
                         <img src={`${course.image}`} alt="Course image" />
                     </div>
@@ -48,15 +68,12 @@ function CourseSinglePage() {
                                     </div>
                                 </div>
                                 <p className={classes.course__container__price}>{"Rs. "+ course.price}</p>
-                                <Link to={course.isAvailable ? "/checkout" : ""}>
-                                    <Button 
-                                        className={classes.button}
-                                        type="primary__body"
-                                        disabled = {!course.isAvailable}
-                                    >
+                                    <button 
+                                        className={course.isAvailable ? classes.button__primary__body: classes.button__disabled__body}
+                                        onClick={() => onLinkClick(course._id,course.isAvailable)}
+                                        >
                                         Enroll Now
-                                    </Button>
-                                </Link>
+                                    </button>
                             </div>
     
                         </Container>
@@ -198,6 +215,7 @@ function CourseSinglePage() {
                     
                     </Container>
                </div>   
+               </div>
             }
         </>
     )

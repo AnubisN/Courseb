@@ -40,6 +40,12 @@
     }
 
     &__title {
+
+        & a {
+            text-decoration: none;
+            color: black;
+        }
+
         margin: 0 1em;
         font-weight: 500;
         font-size: 0.8rem;

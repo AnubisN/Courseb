@@ -11,6 +11,10 @@ import {
     ENROLLED_COURSE_REQUEST,
     ENROLLED_COURSE_SUCCESS,
     ENROLLED_COURSE_FAIL,
+
+    COURSE_POSTS_REQUEST,
+    COURSE_POSTS_SUCCESS,
+    COURSE_POSTS_FAIL,
 } from '../constants/courseConstants'
 
 export const listCourse = () => async (dispatch) => {
@@ -71,6 +75,36 @@ export const listEnrolledCourses = id => async (dispatch, getState) => {
     } catch(error) {
         dispatch({
             type: ENROLLED_COURSE_FAIL, 
+            payload: error.response && error.response.data.detail
+            ? error.response.data.detail 
+            : error.message
+        })
+    }
+}
+
+
+export const coursePostsAction = id => async (dispatch, getState) => {
+    try{
+        dispatch({type:COURSE_POSTS_REQUEST})
+
+        const { 
+            userLogin: { userInfo }
+        } = getState()
+
+        const config = {
+            headers: {
+                'Content-type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+
+        const { data } = await axios.get(`/api/coursePost/${id}/`,config)
+
+        dispatch({type: COURSE_POSTS_SUCCESS, payload: data.posts})
+
+    } catch(error) {
+        dispatch({
+            type: COURSE_POSTS_FAIL, 
             payload: error.response && error.response.data.detail
             ? error.response.data.detail 
             : error.message

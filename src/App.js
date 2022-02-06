@@ -15,6 +15,7 @@ import ContactUsPage from './pages/ContactusPage/contactPage';
 import AboutUs from './pages/AboutusPage/aboutusPage';
 import EnrolledCourses from './pages/EnrolledCoursesPage/enrolledcourses';
 import CheckoutPage from './pages/Checkoutpage/checkout';
+import CoursePostPage from './pages/CoursePostPage/coursepostpage';
 
 function App() {
   return (
@@ -34,7 +35,8 @@ function App() {
       <Route path="/contactus" element={<ContactUsPage />}/>
       <Route path="/aboutus" element={<AboutUs />} />
       <Route path="/enrolledCourses" element={<EnrolledCourses />}/>
-      <Route path="/checkout" element={<CheckoutPage />}/>
+      <Route path="/checkout/:id" element={<CheckoutPage />} />
+      <Route path="/coursepost/:id" element={<CoursePostPage />}/>
     </Routes>
     <Footer />
     </BrowserRouter>
