@@ -1,0 +1,89 @@
+@import "../../styles/variables.scss";
+
+.modal {
+    width: 100%;
+    position: fixed;
+    top:0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.175);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__container {
+        width: 35%;
+        background: #fff;
+        border-radius: 5px;
+    }
+
+    &__topsection {
+        display: flex;
+        margin: 2.4em;
+        justify-content: space-between;
+    }
+
+    &__course {
+        &__container {
+            display: flex;
+        }
+        &__img {
+            width: 10em;
+            height: 10em;
+
+            & img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+        &__title {
+            width: 50%;
+            max-width: 50%;
+            margin-left: 1em;
+            & h3 {
+                font-size: 1.3rem;
+            }
+        }
+    }
+
+    &__close__btn {
+        & svg {
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+    }
+
+    &__review {
+        padding: 0;
+        margin: 0 2.4em;
+        & h4 {
+            font-size: 1.4rem;
+        }
+
+        &__stars {
+            margin-top: 0.5em;
+            font-size: 1.5rem;
+
+            & svg {
+                color: rgba(0,0,0,0.175);
+                transition: all .2s ease;
+            }
+
+            & svg:hover {
+                color: orange;
+                cursor: pointer;
+            }
+        }
+
+        & form {
+            margin: 1.5em 0;
+        }
+
+        & form textarea {
+            width: 100%;
+            height: 150px;
+        }
+    }
+}

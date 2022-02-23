@@ -24,8 +24,31 @@
 }
 
 .menu {
+    position: relative;
     & svg {
         margin: 1em;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    &__container {
+        &__ul {
+            padding: 3px;
+            list-style: none;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.175);
+            
+            & li {
+                padding: 3px;
+                cursor: pointer;
+
+                &:hover,
+                &:active {
+                    color: $primary;
+                }
+            }
+        }
     }
 }
 

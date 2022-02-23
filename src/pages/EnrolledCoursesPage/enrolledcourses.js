@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import classes from './enrolledcourses.module.scss'
-import { AiOutlineMenu } from 'react-icons/ai'
 import { useSelector, useDispatch } from 'react-redux'
 import { listEnrolledCourses } from '../../actions/courseActions';
 import Alert from '../../components/Alert/Alert';
 import Loader from '../../components/Loader/loader';
 import { useNavigate, Link } from 'react-router-dom';
+import EnrolledCourse from '../../components/EnrolledCourse/enrolledCourse';
 
 function EnrolledCourses() {
     let navigate = useNavigate();
@@ -29,21 +29,7 @@ function EnrolledCourses() {
               <h2>You have not enrolled to any courses</h2>
               :
               courses.map((course,idx) => (
-                <div key={course._id} className={classes.course}>
-                    <div className={classes.course__info}>
-                        <div className={classes.course__info__img}>
-                            <img src={`${course.course.image}`} alt={`${course.course.name}`}/>
-                        </div>
-
-                        <div className={classes.course__info__title}>
-                            <h3><Link to={`/coursepost/${course.course._id}`}>{course.course.name}</Link></h3>
-                        </div>
-                    
-                    </div>
-                    <div className={classes.menu}>
-                        <AiOutlineMenu />
-                    </div>
-                </div>
+                <EnrolledCourse course={course} key={idx} />
               ))
           }
       </section>
