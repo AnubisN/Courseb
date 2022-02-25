@@ -9,7 +9,7 @@ from .serializers import CoursePostSerializer
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def getPosts(reqeust,pk):
-    posts = CoursePost.objects.filter(course=pk)
+    posts = CoursePost.objects.filter(course=pk).order_by('-createdAt')
     res = []
     print(posts)
     for post in posts:

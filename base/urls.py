@@ -13,6 +13,7 @@ urlpatterns = [
     path('users/updateEnrolledCourses/<str:pk>/', views.updateEnrolledCourses, name="updateEnrolledCourses"),
     path('courses/',views.getCourses, name="courses"),
     path('courses/<str:pk>/', views.getCourse, name='course'),
+    path('courseReview/<str:pk>/',views.createCourseReview, name='createReview'),
     path('faqs/',views.getFAQs, name="faqs"),
     path('testimonials/',views.getTestimonials, name="testimonials"),
     path('blogs/',views.getBlogs, name="blogs"),

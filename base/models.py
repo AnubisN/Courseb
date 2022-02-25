@@ -44,10 +44,11 @@ class Course(models.Model):
 class Review(models.Model):
     course = models.ForeignKey(Course, on_delete=models.SET_NULL, null=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
-    name = models.CharField(max_length=300, null=True, blank=True)
+    name = models.CharField(max_length = 300,null=True, blank=False)
     rating = models.IntegerField(null=True, blank=True, default=0)
     comment = models.TextField(null=True,blank=True)
     _id = models.AutoField(primary_key=True, editable=False)
+    createdAt = models.DateField(auto_now=True)
 
     def __str__(self):
         return str(self.rating)
@@ -140,6 +141,7 @@ class EnrolledCourse(models.Model):
     _id = models.AutoField(primary_key=True, editable=False)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True)
     course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True)
+    createdAt = models.DateField(auto_now=True)
 
     # def __str__(self):
     #     return self.user

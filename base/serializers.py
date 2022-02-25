@@ -2,16 +2,22 @@ from dataclasses import field
 from django.db.models import fields
 from rest_framework import serializers
 from rest_framework_simplejwt.tokens import RefreshToken
-from .models import Blog, Course, FAQ, Gallery, Testimonial, User, EnrolledCourse
+from .models import Blog, Course, FAQ, Gallery, Testimonial, User, EnrolledCourse, Review
 
 class CourseSerializer(serializers.ModelSerializer):
     instructor = serializers.SerializerMethodField(read_only=True)
+    reviews = serializers.SerializerMethodField(read_only=True)
     class Meta:
         model = Course
         fields = '__all__'
 
     def get_instructor(self, obj):
         serializer = UserSerializer(obj.instructor, many=False)
+        return serializer.data
+
+    def get_reviews(self, obj):
+        reviews = obj.review_set.all()
+        serializer = ReviewSerializer(reviews,many=True)
         return serializer.data
 
 class CourseOnlySerializer(serializers.ModelSerializer):
@@ -31,7 +37,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id','_id','phoneNumber','job','address','email','name','isAdmin','profilePicture','first_name','last_name']
+        fields = ['id','username','_id','phoneNumber','job','address','email','name','isAdmin','profilePicture','first_name','last_name']
 
     def get__id(self, obj):
         return obj.id
@@ -73,6 +79,17 @@ class BlogSerializer(serializers.ModelSerializer):
         model = Blog
         fields = '__all__'
 
+    def get_user(self, obj):
+        serializer = UserSerializer(obj.user, many=False)
+        return serializer.data
+
+class ReviewSerializer(serializers.ModelSerializer):
+    user = serializers.SerializerMethodField(read_only=True)
+
+    class Meta:
+        model = Review
+        fields = '__all__'
+    
     def get_user(self, obj):
         serializer = UserSerializer(obj.user, many=False)
         return serializer.data

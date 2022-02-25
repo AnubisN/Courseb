@@ -2,7 +2,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 
-from .models import Blog, Course, FAQ, Gallery, Testimonial, User, EnrolledCourse
+from .models import Blog, Course, FAQ, Gallery, Testimonial, User, EnrolledCourse, Review
 from .serializers import BlogSerializer, CourseSerializer, FAQSerializer, GallerySerializer, TestimonialSerializer, UserSerializer, UserSerializerWithToken, UserPasswordSerializer, EnrolledCourseSerializer
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -177,3 +177,45 @@ def updateEnrolledCourses(request,pk):
         courses.append(serializer.data)
     res = {"courses": courses}
     return Response(res, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def createCourseReview(request, pk):
+    user = request.user
+    course = Course.objects.get(_id=pk)
+    data = request.data
+
+    #1 - Review already exists
+    alreadyExists = course.review_set.filter(user=user).exists()
+
+    if alreadyExists:
+        content = {'detail': 'Sorry, you have already submitted a review for this course'}
+        return Response(content, status=status.HTTP_400_BAD_REQUEST)
+
+    #2 - No Rating or 0
+    elif data['rating'] == 0:
+        content = {'detail': 'Please select a rating'}
+        return Response(content, status=status.HTTP_400_BAD_REQUEST)
+
+    #3 - Create review
+    else:
+        name =    user.first_name + " " + user.last_name
+        review = Review.objects.create(
+            course = course,
+            user = user,
+            name = name,
+            rating = data['rating'],
+            comment = data['comment'],
+        )
+
+        reviews = course.review_set.all()
+        course.numReviews = len(reviews)
+
+        total = 0
+        for i in reviews:
+            total += i.rating
+        
+        course.rating = total / len(reviews)
+        course.save()
+
+        return Response({'detail':'Review was added'})
