@@ -1,0 +1,8 @@
+.rating {
+    display: flex;
+    align-items: center;
+}
+
+span p {
+    padding-left: 10px;
+}

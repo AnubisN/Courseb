@@ -1,15 +1,14 @@
 import React, {useEffect, useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import classes from './courseSingle.module.scss'
-import { AiFillStar } from 'react-icons/ai';
 import Button from '../../components/Button/Button';
 import Container from '../../components/Container';
 import { useNavigate, useParams } from 'react-router-dom';
 import { listCourseDetails } from '../../actions/courseActions';
 import Alert from '../../components/Alert/Alert'
 import Loader from '../../components/Loader/loader';
-import { Link } from 'react-router-dom';
-import { addToCart } from '../../actions/courseActions';
+import Rating from '../../components/Rating/rating';
+import Review from '../../components/Review/review';
 
 function CourseSinglePage() {
     let params = useParams();
@@ -57,14 +56,7 @@ function CourseSinglePage() {
                                 
                                 <div className={classes.course__container__reviews}>
                                     <div className={classes.course__container__reviews__stars}>
-                                        <AiFillStar />
-                                        <AiFillStar />
-                                        <AiFillStar />
-                                        <AiFillStar />
-                                        <AiFillStar />
-                                    </div>
-                                    <div className={classes.course__container__reviews__numberOfRatings}>
-                                        <p>| 1000 ratings</p>
+                                        <Rating value={course.rating} text={`${course.numReviews} reviews`} color={'#FFA500'} />
                                     </div>
                                 </div>
                                 <p className={classes.course__container__price}>{"Rs. "+ course.price}</p>
@@ -92,8 +84,8 @@ function CourseSinglePage() {
                             <ul>
                                 { 
                                     course.skills 
-                                    ? course.skills.split(".").map(el => 
-                                        (el.length != 0) ? <li>{el}</li> : null) 
+                                    ? course.skills.split(".").map((el,id) => 
+                                        (el.length != 0) ? <li key={id}>{el}</li> : null) 
                                     : null
                                 }
                             </ul>
@@ -104,8 +96,8 @@ function CourseSinglePage() {
                             <ul>
                             { 
                                 course.requirements 
-                                ? course.requirements.split(".").map(el => 
-                                        (el.length != 0) ? <li>{el}</li> : null) 
+                                ? course.requirements.split(".").map((el,id) => 
+                                        (el.length != 0) ? <li key={id}>{el}</li> : null) 
                                 : null
                             }
                             </ul>
@@ -126,84 +118,12 @@ function CourseSinglePage() {
     
                         <div className={classes.course__content}>
                             <h2 className={classes.course__content__title}>Reviews</h2>
-    
+                            {
+                                course.reviews.map(el => (
+                                    <Review review={el} key={el._id}/>
+                                ))
+                            }
                             <div className={classes.course__review__section}>
-                                <div className={classes.review__container}>
-                                    <div className={classes.review__container__user__img}>
-                                        <img src="amyGoldberg.jpg" />
-                                    </div>
-    
-                                    <div className={classes.review__container__user__content}>
-                                        <p className={classes.review__container__user__content__name}>Nilam Khatri</p>
-                                        <div className={classes.review__container__user__content__reviews}>
-                                            <div className={classes.review__container__user__content__reviews__star}>
-                                            <AiFillStar />
-                                            <AiFillStar />
-                                            <AiFillStar />
-                                            <AiFillStar />
-                                            </div>
-                                            <div className={classes.review__container__user__content__reviews__timeline}>
-                                                <p>a month ago</p>
-                                            </div>
-                                        </div>
-                                        <p className={classes.review__container__user__content__reviews__desc}>
-                                        Hi, This is one of the best Adobe XD course in udemy.
-                                        He is not teaching but after finishing this course we are ready to do real projects. 
-                                        That's the magic of this men, Thank you sir.
-                                        </p>
-                                    </div>
-                                </div>
-                                <div className={classes.review__container}>
-                                    <div className={classes.review__container__user__img}>
-                                        <img src="amyGoldberg.jpg" />
-                                    </div>
-    
-                                    <div className={classes.review__container__user__content}>
-                                        <p className={classes.review__container__user__content__name}>Nilam Khatri</p>
-                                        <div className={classes.review__container__user__content__reviews}>
-                                            <div className={classes.review__container__user__content__reviews__star}>
-                                            <AiFillStar />
-                                            <AiFillStar />
-                                            <AiFillStar />
-                                            <AiFillStar />
-                                            </div>
-                                            <div className={classes.review__container__user__content__reviews__timeline}>
-                                                <p>a month ago</p>
-                                            </div>
-                                        </div>
-                                        <p className={classes.review__container__user__content__reviews__desc}>
-                                        Hi, This is one of the best Adobe XD course in udemy.
-                                        He is not teaching but after finishing this course we are ready to do real projects. 
-                                        That's the magic of this men, Thank you sir.
-                                        </p>
-                                    </div>
-                                </div>
-                                <div className={classes.review__container}>
-                                    <div className={classes.review__container__user__img}>
-                                        <img src="amyGoldberg.jpg" />
-                                    </div>
-    
-                                    <div className={classes.review__container__user__content}>
-                                        <p className={classes.review__container__user__content__name}>Nilam Khatri</p>
-                                        <div className={classes.review__container__user__content__reviews}>
-                                            <div className={classes.review__container__user__content__reviews__star}>
-                                            <AiFillStar />
-                                            <AiFillStar />
-                                            <AiFillStar />
-                                            <AiFillStar />
-                                            <AiFillStar />
-                                            </div>
-                                            <div className={classes.review__container__user__content__reviews__timeline}>
-                                                <p>a month ago</p>
-                                            </div>
-                                        </div>
-                                        <p className={classes.review__container__user__content__reviews__desc}>
-                                        Hi, This is one of the best Adobe XD course in udemy.
-                                        He is not teaching but after finishing this course we are ready to do real projects. 
-                                        That's the magic of this men, Thank you sir.
-                                        </p>
-                                    </div>
-                                </div>
                                 <Button 
                                     className={classes.button}
                                     type="secondary"

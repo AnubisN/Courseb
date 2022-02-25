@@ -2,10 +2,19 @@ import React, {useState} from 'react'
 import ReactDOM from 'react-dom';
 import classes from './reviewModal.module.scss'
 import { FaStar } from 'react-icons/fa';
-import { AiOutlineBgColors, AiOutlineClose } from 'react-icons/ai';
+import { AiOutlineClose } from 'react-icons/ai';
 import Button from '../Button/Button';
+import { COURSE_CREATE_REVIEW_RESET } from '../../constants/courseConstants'
+import { useSelector, useDispatch } from 'react-redux';
+import Loader from '../Loader/loader';
+import Alert from '../Alert/Alert'
+import { createProductReview } from '../../actions/courseActions';
 
 function ReviewModal({ onClose, course }) {
+    const courseReviewCreate = useSelector(state => state.courseReviewCreate)
+    const { success, loading, error } = courseReviewCreate
+    const dispatch = useDispatch();
+
     const colors = {
         orange:"#FFBA5A",
         grey:"#a9a9a9"
@@ -14,6 +23,11 @@ function ReviewModal({ onClose, course }) {
     const [currentValue, setCurrentValue] = useState(0);
     const [hoverValue, setHoverValue] = useState(undefined);
     const [msg, setMsg] = useState("")
+
+    const onCloseSubmit = () => {
+        onClose();
+        dispatch({type:COURSE_CREATE_REVIEW_RESET});
+    }
 
     const handleClick = value => {
         setCurrentValue(value)
@@ -29,13 +43,21 @@ function ReviewModal({ onClose, course }) {
 
     const onSubmitHandler = (e) => {
         e.preventDefault();
-        console.log(currentValue);
-        console.log(msg)
+        console.log(currentValue,msg)
+        dispatch(createProductReview(
+            course.course._id, {
+                rating: currentValue,
+                comment: msg
+            }
+        ))
     }
 
     return ReactDOM.createPortal(
         <div className={classes.modal}>
             <div className={classes.modal__container}>
+                {loading && <Loader />}
+                {success && <Alert message="Review Submitted" variant='success' width />}
+                {error && <Alert message={error} variant="danger" width />}
                 <div className={classes.modal__topsection}>
                     <div className={classes.modal__course__container}>
                         <div className={classes.modal__course__img}>
@@ -46,7 +68,7 @@ function ReviewModal({ onClose, course }) {
                         </div>
                     </div>
                     <div className={classes.modal__close__btn}>
-                        <AiOutlineClose onClick={onClose} />
+                        <AiOutlineClose onClick={() => onCloseSubmit()} />
                     </div>
                 </div>
 

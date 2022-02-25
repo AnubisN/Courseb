@@ -3,9 +3,10 @@ import Button from '../Button/Button'
 import classes from "./Card.module.scss"
 import { AiFillStar } from 'react-icons/ai';
 import { Link } from 'react-router-dom'
+import Rating from '../Rating/rating';
 
 function CourseCard({ course }) {
-    const {_id, name, description, isAvailable, image, price} = course;
+    const {_id, name, description, image, rating, numReviews} = course;
     return (
         <Link className={classes.courseLink} to={`/courses/${_id}`}>
             <div className={ classes.card}>
@@ -20,11 +21,7 @@ function CourseCard({ course }) {
                         {description.slice(0,65) + "....."}
                     </p>
                     <div className={classes.card__content__stars}>
-                            <AiFillStar />
-                            <AiFillStar />
-                            <AiFillStar />
-                            <AiFillStar />
-                            <AiFillStar />
+                        <Rating value={rating} text={`${numReviews} reviews`} color={'#FFA500'} />
                     </div>
                     <Button type="primary__small__body">
                         <Link to={`/courses/${_id}`}>

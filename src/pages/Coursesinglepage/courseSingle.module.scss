@@ -56,9 +56,10 @@
         display: flex;
         width: 100%;
         flex-direction: column;
-        margin: 9.5em 0;
+        margin: 5.2em 0;
 
         @include breakpoint(md) {
+            margin: 9.5em 0;
             width: 50%;
         }
 
@@ -81,8 +82,8 @@
             }
 
             &__stars{
-                color: orange;
-                font-size: 1.5rem;
+                color: white;
+                font-size: 1.2rem;
             }
 
             &__numberOfRatings {
