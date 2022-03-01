@@ -1,6 +1,6 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
-import { courseReviewCreateReducer, courseDetailsReducer, courseListReducer, coursePostsReducer, enrolledCoursesReducer } from './reducers/courseReducers';
+import { courseReviewCreateReducer, courseDetailsReducer, courseListReducer, coursePostsReducer, enrolledCoursesReducer, courseCategoryReducer } from './reducers/courseReducers';
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { faqListReducer } from './reducers/faqReducers';
 import { testimonialListReducer } from './reducers/testimonialReducers';
@@ -27,6 +27,7 @@ const reducer = combineReducers({
     cart: cartReducer,
     coursePosts: coursePostsReducer,
     courseReviewCreate: courseReviewCreateReducer, 
+    courseCategory: courseCategoryReducer,
 })
 
 const userInfoFromStorage = localStorage.getItem('userInfo') ?

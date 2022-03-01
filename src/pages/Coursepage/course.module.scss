@@ -3,7 +3,7 @@
 .container {
     width: 100%;
     max-width: 100%;
-    margin: 0 auto;
+    margin: 2em auto;
 
     @include breakpoint(md) {
         width: 80%;
@@ -82,4 +82,49 @@
 .paginationBttns a:active {
     color: white;
     background-color: $secondary;
+}
+
+.dropdown {
+    width: 120px;
+    position: relative;
+    user-select: none;
+}
+
+.dropdown .dropdown_btn {
+    padding: 15px 20px;
+    background: #fff;
+    box-shadow: 3px 3px 10px 6px rgba(0,0,0,0.06);
+    font-weight: bold;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.dropdown .dropdown_content {
+    position: absolute;
+    top: 110%;
+    padding: 10px;
+    background: #fff;
+    box-shadow: 3px 3px 10px 6px rgba(0,0,0,0.06);
+    font-weight: 500;
+    color: #333;
+    left: 0;
+    width: 95%;
+}
+
+.dropdown .dropdown_content .dropdown_item {
+    padding: 10px;
+    cursor: pointer;
+    transform: all .2s;
+}
+
+.dropdown .dropdown_content .dropdown_item:hover {
+    background: #f4f4f4;
+    color: $primary;
+}
+
+.missing_title {
+    text-align: center;
+    margin: 1em auto;
 }

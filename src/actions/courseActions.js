@@ -19,7 +19,10 @@ import {
     COURSE_CREATE_REVIEW_REQUEST,
     COURSE_CREATE_REVIEW_SUCCESS,
     COURSE_CREATE_REVIEW_FAIL,
-    COURSE_CREATE_REVIEW_RESET,
+
+    COURSE_CATEGORY_REQUEST,
+    COURSE_CATEGORY_SUCCESS,
+    COURSE_CATEGORY_FAIL,
 } from '../constants/courseConstants'
 
 export const listCourse = () => async (dispatch) => {
@@ -33,6 +36,24 @@ export const listCourse = () => async (dispatch) => {
     } catch(error) {
         dispatch({
             type: COURSE_LIST_FAIL, 
+            payload: error.response && error.response.data.detail
+            ? error.response.data.detail 
+            : error.message
+        })
+    }
+}
+
+export const listCourseCategory = () => async (dispatch) => {
+    try{
+        dispatch({type:COURSE_CATEGORY_REQUEST})
+
+        const { data } = await axios.get('/api/category/')
+
+        dispatch({type: COURSE_CATEGORY_SUCCESS, payload: data})
+
+    } catch(error) {
+        dispatch({
+            type: COURSE_CATEGORY_FAIL, 
             payload: error.response && error.response.data.detail
             ? error.response.data.detail 
             : error.message
@@ -148,3 +169,4 @@ export const createProductReview = (productId, review) => async (dispatch, getSt
         })
     }
 }
+

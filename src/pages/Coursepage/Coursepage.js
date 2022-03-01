@@ -4,26 +4,37 @@ import ReactPaginate from 'react-paginate';
 import Card from '../../components/Cards/Card'
 import { AiFillCaretDown, AiFillCaretLeft, AiFillCaretRight  } from 'react-icons/ai'
 import { useDispatch, useSelector } from 'react-redux'
-import { listCourse } from '../../actions/courseActions';
+import { listCourse, listCourseCategory } from '../../actions/courseActions';
 import Alert from '../../components/Alert/Alert'
 import Loader from '../../components/Loader/loader';
+import CourseSort from './courseSort';
+import { COURSE_LIST_SORT } from '../../constants/courseConstants';
 
 function Coursepage() {
+    const [selected, setSelected] = useState("Sort By")
     const coursesList = useSelector(state => state.courseList)
-    const { error, loading, courses} = coursesList 
+    const courseCategory = useSelector(state => state.courseCategory)
+    const { category } = courseCategory
+    const { error, loading, courses, sortedCourses} = coursesList 
     const [message, setMessage] = useState('');
     const [pageNumber, setPageNumber] = useState(0);
     const dispatch = useDispatch()
     
     useEffect(() => {
-        dispatch(listCourse())
-    }, [dispatch])
+        if (selected === "Sort By") {
+            dispatch(listCourse())
+            dispatch(listCourseCategory())
+        }
+        else if (selected !== "Sort By") {
+            dispatch({type: COURSE_LIST_SORT, payload: selected})
+        } 
+    }, [dispatch, selected])
 
     const coursePerPage = 6;
     const pagesVisited = pageNumber * coursePerPage;
 
-    const displayCourses = courses 
-        ? courses.slice(pagesVisited, pagesVisited + coursePerPage)
+    const displayCourses = sortedCourses 
+        ? sortedCourses.slice(pagesVisited, pagesVisited + coursePerPage)
         .map(course => (
             <Card key={course._id} course={course} />
         )) 
@@ -42,14 +53,13 @@ function Coursepage() {
                 : error ? <Alert message={error} variant='danger'/>
                 :  
                 <div className={classes.container}>
-                <div className={classes.course__categories}>
-                    <p>Categories</p>
-                    <div className={classes.course__categories__icon}>
-                     <AiFillCaretDown />
-                    </div>
-                </div>
+                <CourseSort selected={selected} setSelected={setSelected} category={category} />
                     <div className={classes.course__container}>
-                    {displayCourses}
+                    {
+                        sortedCourses.length === 0 
+                            ? <h4 className={classes.missing_title}>Courses for '{selected}' are not currently available</h4>
+                            : displayCourses
+                    }
                     </div>
         
                     <ReactPaginate 
