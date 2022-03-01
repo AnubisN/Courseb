@@ -30,7 +30,7 @@ function EnrolledCourse({ course }) {
 
                 <div className={classes.course__info__title}>
                     <h3><Link to={`/coursepost/${course.course._id}`}>{course.course.name}</Link></h3>
-                    <p>Enrolled on: {course.course.createdAt}</p>
+                    <p>Enrolled on: {course.createdAt}</p>
                 </div>
             
             </div>

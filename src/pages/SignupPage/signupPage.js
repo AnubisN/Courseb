@@ -12,6 +12,7 @@ function SignupPage() {
     let navigate = useNavigate()
     const userRegister = useSelector(state => state.userRegister)
     const {error, loading, userInfo} = userRegister
+    const [passwordError, setPasswordError] = useState('')
     const [firstName,setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [email, setEmail] = useState('')
@@ -19,6 +20,7 @@ function SignupPage() {
     const [confirmPassword, setConfirmPassword] = useState('')
     const [message, setMessage] = useState('')
     const dispatch = useDispatch()
+    const regex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/
 
     useEffect(() => {
         if(userInfo) {
@@ -33,6 +35,13 @@ function SignupPage() {
         } else {
             dispatch(register(firstName,lastName,email,password))
         }
+    }
+
+    const checkPassword = e => {
+        let pass = e.target.value
+        setPassword(pass)
+        regex.test(pass) ? setPasswordError('') : setPasswordError("Password must be combination of 8 characters containing number and special character")
+        console.log(password,passwordError)
     }
 
     return (
@@ -85,7 +94,7 @@ function SignupPage() {
                                     name="" 
                                     required  
                                     value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
+                                    onChange={(e) => checkPassword(e)}
                                     />
                             </div>
                             <div className={classes.container__contentBx__formBx__inputBx}>

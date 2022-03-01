@@ -10,6 +10,8 @@ import {
     ENROLLED_COURSE_REQUEST,
     ENROLLED_COURSE_SUCCESS,
     ENROLLED_COURSE_FAIL,
+    ENROLLED_COURSE_SORT_BY_RATING,
+    ENROLLED_COURSE_SORT_BY_ENROLLED_DATE,
 
     COURSE_POSTS_REQUEST,
     COURSE_POSTS_SUCCESS,
@@ -63,7 +65,16 @@ export const enrolledCoursesReducer = (state = { courses: []}, action) => {
         
         case ENROLLED_COURSE_FAIL:
             return {loading: false, error: action.payload}
-
+        case ENROLLED_COURSE_SORT_BY_RATING:
+            return {
+                ...state,
+                courses: Object.values(state.courses).sort((a, b) => b.course.rating - a.course.rating)
+            }
+        case ENROLLED_COURSE_SORT_BY_ENROLLED_DATE:
+            return {
+                ...state,
+                courses: state.courses.sort((c1,c2) => new Date(c2.createdAt) - new Date(c1.createdAt))
+            }
         default:
             return state
     }

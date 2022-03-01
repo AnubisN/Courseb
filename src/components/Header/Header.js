@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import classes from './Header.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
@@ -19,8 +19,22 @@ function HeaderUserInfo({ userInfo }) {
         dispatch(logout())
     }
 
+    const ref = useRef();
+
+    useEffect(() => {
+        const checkIfClickedOutside = (e) => {
+          if(toggle && ref.current && !ref.current.contains(e.target)) {
+            setToggle(false);
+          }
+        };
+        document.addEventListener("click", checkIfClickedOutside);
+        return () => {
+          document.removeEventListener("click",checkIfClickedOutside);
+        }
+      }, [toggle])
+
     return(
-        <div className={classes.user}>
+        <div className={classes.user} ref={ref}>
             <ul>
                 <li>
                     <a onClick={menuToggle}>
