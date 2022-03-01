@@ -1,12 +1,14 @@
 from dataclasses import field
+from unicodedata import category
 from django.db.models import fields
 from rest_framework import serializers
 from rest_framework_simplejwt.tokens import RefreshToken
-from .models import Blog, Course, FAQ, Gallery, Testimonial, User, EnrolledCourse, Review
+from .models import Blog, Course, FAQ, Gallery, Testimonial, User, EnrolledCourse, Review, Category
 
 class CourseSerializer(serializers.ModelSerializer):
     instructor = serializers.SerializerMethodField(read_only=True)
     reviews = serializers.SerializerMethodField(read_only=True)
+    category = serializers.SerializerMethodField(read_only=True)
     class Meta:
         model = Course
         fields = '__all__'
@@ -20,9 +22,18 @@ class CourseSerializer(serializers.ModelSerializer):
         serializer = ReviewSerializer(reviews,many=True)
         return serializer.data
 
+    def get_category(self,obj):
+        serializer = CategorySerializer(obj.category, many=False)
+        return serializer.data
+        
 class CourseOnlySerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
+        fields = '__all__'
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
         fields = '__all__'
 
 class UserPasswordSerializer(serializers.ModelSerializer):

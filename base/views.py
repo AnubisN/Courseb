@@ -2,8 +2,8 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 
-from .models import Blog, Course, FAQ, Gallery, Testimonial, User, EnrolledCourse, Review
-from .serializers import BlogSerializer, CourseSerializer, FAQSerializer, GallerySerializer, TestimonialSerializer, UserSerializer, UserSerializerWithToken, UserPasswordSerializer, EnrolledCourseSerializer
+from .models import Blog, Course, FAQ, Gallery, Testimonial, User, EnrolledCourse, Review, Category
+from .serializers import BlogSerializer, CourseSerializer, FAQSerializer, GallerySerializer, TestimonialSerializer, UserSerializer, UserSerializerWithToken, UserPasswordSerializer, EnrolledCourseSerializer, CategorySerializer
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 
@@ -177,6 +177,12 @@ def updateEnrolledCourses(request,pk):
         courses.append(serializer.data)
     res = {"courses": courses}
     return Response(res, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+def getCategories(request):
+    category = Category.objects.all()
+    serializer = CategorySerializer(category, many=True)
+    return Response(serializer.data)
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])

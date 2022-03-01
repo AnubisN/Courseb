@@ -18,5 +18,6 @@ urlpatterns = [
     path('testimonials/',views.getTestimonials, name="testimonials"),
     path('blogs/',views.getBlogs, name="blogs"),
     path('blogs/<str:pk>/', views.getBlog, name="blog"),
-    path('gallerys/',views.getGallery, name='gallery')
+    path('gallerys/',views.getGallery, name='gallery'),
+    path('category/',views.getCategories,name="category")
 ]
