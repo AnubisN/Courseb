@@ -3,11 +3,13 @@ import { AiOutlineMenu } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
 import classes from  './../../pages/EnrolledCoursesPage/enrolledcourses.module.scss'
 import ReviewModal from '../ReviewModal/reviewModal'
+import Rating from '../Rating/rating'
 
 function EnrolledCourse({ course }) {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const [isModelOpen, setIsModelOpen] = useState(false)
     const ref = useRef();
+    const text = course.course.numReviews > 1 ? "reviews" : "review" 
 
     useEffect(() => {
         const checkIfClickedOutside = (e) => {
@@ -31,6 +33,7 @@ function EnrolledCourse({ course }) {
                 <div className={classes.course__info__title}>
                     <h3><Link to={`/coursepost/${course.course._id}`}>{course.course.name}</Link></h3>
                     <p>Enrolled on: {course.createdAt}</p>
+                    <Rating value={course.course.rating} text={`${course.course.numReviews} ${text}`} color={'#FFA500'} />
                 </div>
             
             </div>

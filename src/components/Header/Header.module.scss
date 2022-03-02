@@ -12,8 +12,8 @@
 
     & ul li a {
         display: flex;
-        height: 40px;
         align-items: center;
+        margin-right: -20px;
     }
 
     & img {
@@ -53,6 +53,7 @@
 
         & li {
             color: $dark;
+            margin-right: 20px !important;
         }
     }
 
@@ -91,12 +92,11 @@
 
 
         &__logo {
-            width: 110px;
-            height: auto;
+            width: 90px;
+            padding: 0 8px;
 
             @include breakpoint(md) {
-                width: 160px;
-                height: 160px;
+                width: 100px;
             }
 
             & img {
@@ -170,6 +170,7 @@
             }
             button {
                 margin: 0 10px;
+                margin-right: 0px;
                 
                 &:last-child {
                     @media only screen and (max-width: 768px) {

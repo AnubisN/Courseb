@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import classes from './course.module.scss'
 import ReactPaginate from 'react-paginate';
 import Card from '../../components/Cards/Card'
-import { AiFillCaretDown, AiFillCaretLeft, AiFillCaretRight  } from 'react-icons/ai'
+import { AiFillCaretLeft, AiFillCaretRight  } from 'react-icons/ai'
 import { useDispatch, useSelector } from 'react-redux'
 import { listCourse, listCourseCategory } from '../../actions/courseActions';
 import Alert from '../../components/Alert/Alert'

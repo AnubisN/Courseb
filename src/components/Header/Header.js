@@ -50,7 +50,7 @@ function HeaderUserInfo({ userInfo }) {
                             </li>
                             <li>
                                 <Link to="enrolledCourses" onClick={menuToggle}>
-                                    Courses
+                                    My Courses
                                 </Link>
                             </li>
                             <li>
@@ -100,10 +100,19 @@ function Header() {
             })
         }
         window.addEventListener("resize", handleResize);
-
         return () => window.removeEventListener("resize", handleResize);
-
     }, [])
+
+    useEffect(() => {
+        const getSize = () => {
+            setSize({
+                width: window.innerWidth,
+                height: window.innerHeight
+            })
+        }
+        window.addEventListener("load", getSize);
+        return () => window.removeEventListener("load",getSize);
+    },[])
 
     useEffect(() => {
         if(size.width > 768 && menuOpen) {
@@ -120,7 +129,7 @@ function Header() {
             <div className={classes.header__content}>
                 <div className={classes.header__content__logo}>
                     <Link to="/">
-                    <img src="/logo.png" />    
+                    <img src="/logo_new.png" />    
                     </Link>
                 </div> 
 

@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { listEnrolledCourses } from '../../actions/courseActions';
 import Alert from '../../components/Alert/Alert';
 import Loader from '../../components/Loader/loader';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import EnrolledCourse from '../../components/EnrolledCourse/enrolledCourse';
 import DropdownButton from '../../components/DropdownButton/dropdownButton';
 import { ENROLLED_COURSE_SORT_BY_RATING,ENROLLED_COURSE_SORT_BY_ENROLLED_DATE } from '../../constants/courseConstants';
@@ -35,7 +35,9 @@ function EnrolledCourses() {
       <section className={classes.container}>
           {loading && <Loader />}
           {error && <Alert message={error} variant='danger'/>}
-          <DropdownButton selected={selected} setSelected={setSelected} />
+          {
+              courses.length > 0 && <DropdownButton selected={selected} setSelected={setSelected} />
+          }
           {
               courses.length == 0 ?
               <h2>You have not enrolled to any courses</h2>

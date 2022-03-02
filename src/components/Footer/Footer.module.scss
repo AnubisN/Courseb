@@ -28,12 +28,18 @@
     }
 
     &__row{
-       width: 85%;
+       width: 100%;
+       max-width: 100%;
        margin: auto;
        display: flex;
        flex-wrap: wrap;
        align-items: flex-start; 
        justify-content: space-between;
+
+       @include breakpoint(md) {
+        width: 80%;
+        max-width: 80%;
+    }
     }
 
     &__col{

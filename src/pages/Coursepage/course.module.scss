@@ -45,7 +45,7 @@
         flex-wrap: wrap;
 
         @include breakpoint(md) {
-            width: 90%;
+            width: 100%;
             margin: 2em auto !important;
             justify-content: space-between;
         }
@@ -85,7 +85,7 @@
 }
 
 .dropdown {
-    width: 120px;
+    width: 140px;
     position: relative;
     user-select: none;
 }

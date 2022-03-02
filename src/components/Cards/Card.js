@@ -7,6 +7,7 @@ import Rating from '../Rating/rating';
 
 function CourseCard({ course }) {
     const {_id, name, description, image, rating, numReviews} = course;
+    const text = numReviews > 1 ? "reviews" : "review"
     return (
         <Link className={classes.courseLink} to={`/courses/${_id}`}>
             <div className={ classes.card}>
@@ -21,7 +22,7 @@ function CourseCard({ course }) {
                         {description.slice(0,65) + "....."}
                     </p>
                     <div className={classes.card__content__stars}>
-                        <Rating value={rating} text={`${numReviews} reviews`} color={'#FFA500'} />
+                        <Rating value={rating} text={`${numReviews} ${text}`} color={'#FFA500'} />
                     </div>
                     <Button type="primary__small__body">
                         <Link to={`/courses/${_id}`}>
