@@ -19,5 +19,6 @@ urlpatterns = [
     path('blogs/',views.getBlogs, name="blogs"),
     path('blogs/<str:pk>/', views.getBlog, name="blog"),
     path('gallerys/',views.getGallery, name='gallery'),
-    path('category/',views.getCategories,name="category")
+    path('category/',views.getCategories,name="category"),
+    path('esewaPaymentSuccess/',views.esewaSuccesss ,name="esewa-success")
 ]

@@ -1,6 +1,9 @@
+from asyncio import constants
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
+import requests as req
+import xml.etree.ElementTree as ET
 
 from .models import Blog, Course, FAQ, Gallery, Testimonial, User, EnrolledCourse, Review, Category
 from .serializers import BlogSerializer, CourseSerializer, FAQSerializer, GallerySerializer, TestimonialSerializer, UserSerializer, UserSerializerWithToken, UserPasswordSerializer, EnrolledCourseSerializer, CategorySerializer
@@ -164,6 +167,7 @@ def getEnrolledCourses(request):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def updateEnrolledCourses(request,pk):
+    print(pk)
     user = request.user
     course = Course.objects.get(_id=pk)
     enrolledCourse = EnrolledCourse.objects.create(
@@ -225,3 +229,22 @@ def createCourseReview(request, pk):
         course.save()
 
         return Response({'detail':'Review was added'})
+
+
+#payment views
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def esewaSuccesss(request):
+    url ="https://uat.esewa.com.np/epay/transrec"
+    d = {
+        'amt': request.data['amt'],
+        'scd': 'EPAYTEST',
+        'rid': request.data['rid'],
+        'pid': request.data['pid'],
+    }
+    resp = req.post(url, d)
+    root = ET.fromstring(resp.content)
+    stat = root[0].text.strip()
+    if stat == "Success":
+        return Response({"detail": stat},status=status.HTTP_200_OK)
+    return Response({"detail": "Error"},status=status.HTTP_400_BAD_REQUEST)
