@@ -16,6 +16,7 @@ import AboutUs from './pages/AboutusPage/aboutusPage';
 import EnrolledCourses from './pages/EnrolledCoursesPage/enrolledcourses';
 import CheckoutPage from './pages/Checkoutpage/checkout';
 import CoursePostPage from './pages/CoursePostPage/coursepostpage';
+import PaymentPage from './pages/paymentPage';
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
       <Route path="/enrolledCourses" element={<EnrolledCourses />}/>
       <Route path="/checkout/:id" element={<CheckoutPage />} />
       <Route path="/coursepost/:id" element={<CoursePostPage />}/>
+      <Route path="/payment-verify" element={<PaymentPage />}/>
     </Routes>
     <Footer />
     </BrowserRouter>
