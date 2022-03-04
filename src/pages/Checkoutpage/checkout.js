@@ -9,6 +9,9 @@ import { listEnrolledCourses } from '../../actions/courseActions';
 import Alert from '../../components/Alert/Alert';
 import axios from 'axios'
 import { COURSE_CHECKOUT_REMOVE } from '../../constants/cartConstants';
+import KhaltiCheckout from 'khalti-checkout-web';
+import post from './esewaConfig'
+import { publicKey, publicSecretKey } from './khaltiConfig';
 
 function CheckoutPage() {
     let navigate = useNavigate();
@@ -20,6 +23,7 @@ function CheckoutPage() {
     const { courses, success } = cart
     const enrolledCourses = useSelector(state => state.enrolledCourses)
     const [message, setMessage] = useState('');
+    const [payment, setPayment] = useState('');
     const [successMessage, setSuccessMessage] = useState('')
     const [amtParam, setAmtParam] = useSearchParams()
     const [pidParam, setpidParam] = useSearchParams()
@@ -50,7 +54,7 @@ function CheckoutPage() {
 
                 }
                 else {
-                    setMessage("Payment was not verified. Please try again later")
+                    setMessage("Payment was not verified. Please try again later!")
                 }
             }
             checkPaymentSuccess()
@@ -82,37 +86,57 @@ function CheckoutPage() {
         if(similarCourse.length == 1) {
             setMessage("You have already enrolled for this course.")
         } else {
-            var path="https://uat.esewa.com.np/epay/main";
-            const pid = courses._id + courses.name + Math.random()
-            var params= {
-                amt: courses.price,
-                psc: 0,
-                pdc: 0,
-                txAmt: 0,
-                tAmt: courses.price,
-                pid: pid,
-                scd: "EPAYTEST",
-                su: window.location.href,
-                fu: "http://merchant.com.np/page/esewa_payment_failed"
+            if(payment === "Khalti") {
+                let config = {
+                    // replace the publicKey with yours
+                    "publicKey": publicKey,
+                    "productIdentity": courses._id,
+                    "productName": courses.name,
+                    "productUrl": "http://localhost:3000",
+                    "paymentPreference": [
+                        "KHALTI",
+                        "EBANKING",
+                        "MOBILE_BANKING",
+                        "CONNECT_IPS",
+                        "SCT",
+                        ],
+                    "eventHandler": {
+                        onSuccess (payload) {
+                            let data = {
+                                "token": payload.token,
+                                "amount": payload.amount
+                            };
+                            
+                            axios.post("/api/khaltiPaymentSuccess/", data)
+                                .then(response => {
+                                    const { detail } = response.data;
+                                    let status = "Success"
+                                    if(status === detail) {
+                                        dispatch(requestcartItems(params.id))
+                                    }
+                                })
+                                .catch(error => {
+                                    setMessage("Payment was not verified. Please try again later!")
+                                });
+                        },
+                        onError (error) {
+                            setMessage("Payment was not verified. Please try again later!")
+                        },
+                    }
+                };
+                let checkout = new KhaltiCheckout(config);
+                checkout.show({amount:courses.price})
             }
-
-            function post(path, params) {
-                var form = document.createElement("form");
-                form.setAttribute("method", "POST");
-                form.setAttribute("action", path);
-            
-                for(var key in params) {
-                    var hiddenField = document.createElement("input");
-                    hiddenField.setAttribute("type", "hidden");
-                    hiddenField.setAttribute("name", key);
-                    hiddenField.setAttribute("value", params[key]);
-                    form.appendChild(hiddenField);
-                }
-            
-                document.body.appendChild(form);
-                form.submit();
+            else if(payment === "Esewa") {
+                const pid = courses._id + courses.name + Math.random()
+                const su = window.location.href
+                const amt = courses.price
+                const tAmt = courses.price
+                post(amt,tAmt,pid,su)
             }
-            post(path,params)
+            else {
+                setMessage("You need to select a payment method.")
+            }
         }
     }
 
@@ -129,11 +153,11 @@ function CheckoutPage() {
                         <input className={classes.checkout__methods__label__input} type="text" value="Nepal"/>
                         <label className={classes.checkout__methods__label}>Payment Method</label>
                         <div className={classes.checkout__methods__radio}>
-                            <input className={classes.checkout__methods__radiolabel__input} type="radio" name="payment"/>
+                            <input className={classes.checkout__methods__radiolabel__input} onChange={(e) => {setPayment("Esewa"); setMessage("")}} type="radio" name="payment"/>
                             <label className={classes.checkout__methods__radiolabel}>Esewa</label>
                         </div>
                         <div className={classes.checkout__methods__radio}>
-                            <input className={classes.checkout__methods__radiolabel__input} type="radio" name="payment"/>
+                            <input className={classes.checkout__methods__radiolabel__input} type="radio" name="payment" onChange={(e) => {setPayment("Khalti");  setMessage("")}}/>
                             <label className={classes.checkout__methods__radiolabel}>Khalti</label>
                         </div>
                     
