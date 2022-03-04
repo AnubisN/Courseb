@@ -20,5 +20,6 @@ urlpatterns = [
     path('blogs/<str:pk>/', views.getBlog, name="blog"),
     path('gallerys/',views.getGallery, name='gallery'),
     path('category/',views.getCategories,name="category"),
-    path('esewaPaymentSuccess/',views.esewaSuccesss ,name="esewa-success")
+    path('esewaPaymentSuccess/',views.esewaSuccesss ,name="esewa-success"),
+    path('khaltiPaymentSuccess/',views.khaltiSuccess,name="khalti-success")
 ]

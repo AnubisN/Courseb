@@ -248,3 +248,18 @@ def esewaSuccesss(request):
     if stat == "Success":
         return Response({"detail": stat},status=status.HTTP_200_OK)
     return Response({"detail": "Error"},status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+def khaltiSuccess(request):
+    url ="https://khalti.com/api/v2/payment/verify/"
+    payload = {
+        'token': request.data['token'],
+        'amount': request.data['amount']
+    }
+    headers = {
+        "Authorization": "Key test_secret_key_ac0cbd8b3be64d3babfb655fb6422c6d"
+    }
+    resp = req.post(url, payload, headers=headers)
+    if resp.status_code == 200:
+        return Response({"detail": "Success"},status=status.HTTP_200_OK)
+    return Response({"detail": "Error"},status=status.HTTP_400_BAD_REQUEST)
