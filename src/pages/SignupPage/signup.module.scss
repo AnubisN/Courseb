@@ -94,7 +94,7 @@
             }
 
             &__inputBx {
-                margin-bottom: 20px;
+                margin-bottom: 10px;
 
                 & span {
                     font-size: 1.2rem;
@@ -145,3 +145,8 @@
 }
 
 
+.validation__errors {
+    font-size: 0.8rem !important;
+    margin: 0 !important;
+    color: red !important;
+}

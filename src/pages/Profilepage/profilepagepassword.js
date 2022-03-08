@@ -7,7 +7,7 @@ import Button from '../../components/Button/Button'
 import { useNavigate } from 'react-router-dom'
 import { getUserDetails, updateUserPasswordProfile } from '../../actions/userActions'
 import {useSelector, useDispatch} from 'react-redux'
-import { USER_UPDATE_PASSWORD_FAIL, USER_UPDATE_PASSWORD_RESET } from '../../constants/userConstants'
+import { USER_UPDATE_PASSWORD_RESET } from '../../constants/userConstants'
 import Alert from '../../components/Alert/Alert'
 import Loader from '../../components/Loader/loader'
 
@@ -15,10 +15,13 @@ function ProfilePagePassword() {
     let navigate = useNavigate()
     const dispatch = useDispatch()
     const [picture, setPicture] = useState('')
+    const [passwordError, setPasswordError] = useState('')
+    const [confirmPasswordError, setConfirmPasswordError] = useState('')
     const [oldPassword, setOldPassword] = useState('')
     const [newPassword, setNewPassword] = useState('')
     const [confirmNewPassword, setCofirmNewPassword] = useState('')
     const [message, setMessage] = useState('')
+    const regex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/
 
     const userDetails = useSelector(state => state.userDetails)
     const {user} = userDetails
@@ -45,12 +48,25 @@ function ProfilePagePassword() {
 
     const onSubmitHandler = e => {
         e.preventDefault();
-        if(newPassword != confirmNewPassword) {
-            setMessage("New password and cofirm new password doesnot match.")
-        } else {
-            dispatch(updateUserPasswordProfile(oldPassword,newPassword))
-        }
+        if(newPassword !== confirmNewPassword || !regex.test(newPassword)) return
+        dispatch(updateUserPasswordProfile(oldPassword,newPassword))
     }
+
+    const checkPassword = e => {
+        let pass = e.target.value
+        setNewPassword(pass)
+        regex.test(pass) ? setPasswordError('') : setPasswordError("Min 8 letter password, with at least a symbol, upper and lower case letters and a number")
+    }
+    
+    const checkConfirmPassword = e => {
+        let pass = e.target.value
+        setCofirmNewPassword(pass)
+        newPassword !== pass ? setConfirmPasswordError('Password and confirm password does not match'): setConfirmPasswordError('') 
+    }
+
+    const renderError = errorMessage => <span className={classes.validation__errors}>
+        {errorMessage}
+    </span>;
 
     return (
         <section>
@@ -101,9 +117,10 @@ function ProfilePagePassword() {
                                             type="password" 
                                             name="" 
                                             value={newPassword}
-                                            onChange={(e) => setNewPassword(e.target.value)}
+                                            onChange={(e) => checkPassword(e)}
                                             required
                                             />
+                                        {passwordError && renderError(passwordError)}
                                     </div>
                                     <div className={classes.form__input}>
                                         <span>Confim New Password</span>
@@ -111,9 +128,10 @@ function ProfilePagePassword() {
                                             type="password" 
                                             name=""
                                             value={confirmNewPassword}
-                                            onChange={(e) => setCofirmNewPassword(e.target.value)} 
+                                            onChange={(e) => checkConfirmPassword(e)} 
                                             required
                                             />
+                                        {confirmPasswordError && renderError(confirmPasswordError)}
                                     </div>
                                 </div>
 

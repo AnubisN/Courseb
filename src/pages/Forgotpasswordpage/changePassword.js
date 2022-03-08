@@ -6,23 +6,42 @@ import Button from '../../components/Button/Button'
 import Alert from '../../components/Alert/Alert'
 import Loader from '../../components/Loader/loader'
 import { useNavigate } from 'react-router-dom';
-import delay from '../../delay';
 
 function ChangePasswordPage() {
     const navigate = useNavigate();
-    const params = useParams();   
+    const params = useParams();
+    const [passwordError, setPasswordError] = useState('')
+    const [confirmPasswordError, setConfirmPasswordError] = useState('')   
     const [newPassword, setNewPassword] = useState('')
     const [confirmNewPassword, setConfirmNewPassword] = useState('')
     const [success, setSuccess] = useState('')
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
+    const regex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/
 
     async function delay() {
         await new Promise(resolve => setTimeout(resolve, 4000));
         navigate("/login")
     }
 
+    const checkPassword = e => {
+        let pass = e.target.value
+        setNewPassword(pass)
+        regex.test(pass) ? setPasswordError('') : setPasswordError("Min 8 letter password, with at least a symbol, upper and lower case letters and a number")
+    }
+    
+    const checkConfirmPassword = e => {
+        let pass = e.target.value
+        setConfirmNewPassword(pass)
+        newPassword !== pass ? setConfirmPasswordError('Password and confirm password does not match'): setConfirmPasswordError('') 
+    }
+
+    const renderError = errorMessage => <span className={classes.validation__errors}>
+        {errorMessage}
+    </span>;
+
     const changePassword = async () => {
+        if(newPassword !== confirmNewPassword || !regex.test(newPassword)) return
         setLoading(true)
         try {
             const { data } = await axios.post(`/api/users/changePassword/${params.id}/`,{newPassword})
@@ -60,9 +79,10 @@ function ChangePasswordPage() {
                                 type="password" 
                                 name="" 
                                 value={newPassword}
-                                onChange={(e) => setNewPassword(e.target.value)}
+                                onChange={(e) => checkPassword(e)}
                                 required
                                 />
+                            {passwordError && renderError(passwordError)}
                     </div>
                     <div className={classes.container__contentBx__formBx__inputBx}>
                         <span>Confirm New password</span>
@@ -70,9 +90,10 @@ function ChangePasswordPage() {
                                 type="password" 
                                 name="" 
                                 value={confirmNewPassword}
-                                onChange={(e) => setConfirmNewPassword(e.target.value)}
+                                onChange={(e) => checkConfirmPassword(e)}
                                 required
                                 />
+                            {confirmPasswordError && renderError(confirmPasswordError)}
                     </div>
                     <div className={classes.container__contentBx__formBx__inputBx__btn}>
                         <Button 

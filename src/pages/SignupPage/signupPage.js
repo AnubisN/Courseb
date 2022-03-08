@@ -13,6 +13,7 @@ function SignupPage() {
     const userRegister = useSelector(state => state.userRegister)
     const {error, loading, userInfo} = userRegister
     const [passwordError, setPasswordError] = useState('')
+    const [confirmPasswordError, setConfirmPasswordError] = useState('')
     const [firstName,setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [email, setEmail] = useState('')
@@ -22,6 +23,10 @@ function SignupPage() {
     const dispatch = useDispatch()
     const regex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/
 
+    const renderError = errorMessage => <span className={classes.validation__errors}>
+        {errorMessage}
+    </span>;
+
     useEffect(() => {
         if(userInfo) {
             navigate("/")
@@ -30,18 +35,20 @@ function SignupPage() {
 
     const submitHandler = e => {
         e.preventDefault();
-        if(password != confirmPassword) {
-            setMessage("Password and confirm password does not match")
-        } else {
-            dispatch(register(firstName,lastName,email,password))
-        }
+        if(password !== confirmPassword || !regex.test(password)) return
+        dispatch(register(firstName,lastName,email,password))
     }
 
     const checkPassword = e => {
         let pass = e.target.value
         setPassword(pass)
-        regex.test(pass) ? setPasswordError('') : setPasswordError("Password must be combination of 8 characters containing number and special character")
-        console.log(password,passwordError)
+        regex.test(pass) ? setPasswordError('') : setPasswordError("Min 8 letter password, with at least a symbol, upper and lower case letters and a number")
+    }
+    
+    const checkConfirmPassword = e => {
+        let pass = e.target.value
+        setConfirmPassword(pass)
+        password !== pass ? setConfirmPasswordError('Password and confirm password does not match'): setConfirmPasswordError('') 
     }
 
     return (
@@ -96,6 +103,7 @@ function SignupPage() {
                                     value={password}
                                     onChange={(e) => checkPassword(e)}
                                     />
+                                    {passwordError && renderError(passwordError)}
                             </div>
                             <div className={classes.container__contentBx__formBx__inputBx}>
                                 <span>Confirm Password</span>
@@ -104,8 +112,9 @@ function SignupPage() {
                                     name="" 
                                     required 
                                     value={confirmPassword}
-                                    onChange={(e) => setConfirmPassword(e.target.value)}
+                                    onChange={(e) => checkConfirmPassword(e)}
                                     />
+                                {confirmPasswordError && renderError(confirmPasswordError)}
                             </div>
                             <div className={classes.container__contentBx__formBx__inputBx}>
                                 <Button className={classes.button} type="primary__small">
