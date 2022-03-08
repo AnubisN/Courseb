@@ -16,6 +16,8 @@ function diff_year_month_day(dt1, dt2)
     if (month >= 1) 
         return  month + " month ago"
 
+    if (days == 0)
+        return "today"
     return  days + " day ago"
    
  }

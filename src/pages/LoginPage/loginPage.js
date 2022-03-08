@@ -68,6 +68,13 @@ function LoginPage() {
                                 </Button>
                             </div>
                             <div className={classes.container__contentBx__formBx__inputBx}>
+                                <p>
+                                <Link
+                                    to='/forgotPassword'>
+                                    Forgot password
+                                    </Link></p>
+                            </div>
+                            <div className={classes.container__contentBx__formBx__inputBx}>
                                 <p>Don't have an account? 
                                 <Link
                                     to='/register'>

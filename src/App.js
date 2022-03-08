@@ -17,6 +17,8 @@ import EnrolledCourses from './pages/EnrolledCoursesPage/enrolledcourses';
 import CheckoutPage from './pages/Checkoutpage/checkout';
 import CoursePostPage from './pages/CoursePostPage/coursepostpage';
 import PaymentPage from './pages/paymentPage';
+import ForgotPasswordPage from './pages/Forgotpasswordpage/forgotPassword';
+import ChangePasswordPage from './pages/Forgotpasswordpage/changePassword';
 
 function App() {
   return (
@@ -39,6 +41,8 @@ function App() {
       <Route path="/checkout/:id" element={<CheckoutPage />} />
       <Route path="/coursepost/:id" element={<CoursePostPage />}/>
       <Route path="/payment-verify" element={<PaymentPage />}/>
+      <Route path="/forgotPassword" element={<ForgotPasswordPage />}/>
+      <Route path="/changePassword/:id" element={<ChangePasswordPage />}/>
     </Routes>
     <Footer />
     </BrowserRouter>

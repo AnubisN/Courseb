@@ -125,7 +125,7 @@ function CheckoutPage() {
                     }
                 };
                 let checkout = new KhaltiCheckout(config);
-                checkout.show({amount:courses.price})
+                checkout.show({amount:courses.price * 100})
             }
             else if(payment === "Esewa") {
                 const pid = courses._id + courses.name + Math.random()
