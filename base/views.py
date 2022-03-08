@@ -4,11 +4,13 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 import requests as req
 import xml.etree.ElementTree as ET
+import uuid
 
-from .models import Blog, Course, FAQ, Gallery, Testimonial, User, EnrolledCourse, Review, Category
+from .models import Blog, Course, FAQ, Gallery, Testimonial, User, EnrolledCourse, Review, Category, ForgetPasswordToken
 from .serializers import BlogSerializer, CourseSerializer, FAQSerializer, GallerySerializer, TestimonialSerializer, UserSerializer, UserSerializerWithToken, UserPasswordSerializer, EnrolledCourseSerializer, CategorySerializer
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
+from .helpers import send_forget_password_mail
 
 from django.contrib.auth.hashers import make_password, check_password
 from rest_framework import status
@@ -263,3 +265,34 @@ def khaltiSuccess(request):
     if resp.status_code == 200:
         return Response({"detail": "Success"},status=status.HTTP_200_OK)
     return Response({"detail": "Error"},status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+def forgotPassword(request):
+    email = request.data['email']
+    try:
+        user = User.objects.get(email= email)
+        token = str(uuid.uuid4())
+        forgotPassword = ForgetPasswordToken.objects.create(
+            user = user,
+            forgetPasswordToken = token
+        )
+        send_forget_password_mail(user.email, token)
+        message = {'detail': 'Password reset link was forwared to your email. Please look your mail and follow the provided link'}
+        return Response(message,status=status.HTTP_200_OK)
+    except:
+        message = {'detail': 'User with this email does not exist! Please provide email that you have registered with.'}
+        return Response(message,status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+def changePassword(request, token):
+    token = token
+    try: 
+        forgotPassword = ForgetPasswordToken.objects.get(forgetPasswordToken=token)
+        user = User.objects.get(email = forgotPassword.user)
+        user.set_password(request.data['newPassword'])
+        user.save()
+        message = {'detail': 'Your password was changed. You will be redirected to login page shortly'}
+        return Response(message,status=status.HTTP_200_OK)
+    except:
+        message = {'detail': 'Provided token is already expired. Please try again later'}
+        return Response(message,status=status.HTTP_400_BAD_REQUEST)

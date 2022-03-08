@@ -145,3 +145,8 @@ class EnrolledCourse(models.Model):
 
     # def __str__(self):
     #     return self.user
+
+class ForgetPasswordToken(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True)
+    forgetPasswordToken = models.CharField(max_length=100)
+    createdAt = models.DateField(auto_now=True)
