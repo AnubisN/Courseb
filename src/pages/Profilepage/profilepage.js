@@ -10,6 +10,7 @@ import { getUserDetails, updateUserProfile, updateUserProfilePicture } from '../
 import { USER_UPDATE_PROFILE_RESET } from '../../constants/userConstants'
 import Alert from '../../components/Alert/Alert'
 import Loader from '../../components/Loader/loader'
+import { FaPlus } from 'react-icons/fa'
 
 function ProfilePage() {
     let navigate = useNavigate()
@@ -192,17 +193,35 @@ function ProfilePage() {
                                     </div>
                                 </div>
                                
-                               <div className={classes.flex}>
+                               {/* <div className={classes.flex}>
                                     <div className={classes.form__input__file}>
-                                        <span>Upload new profile picture</span>
                                         <input 
                                             type="file" 
                                             name=""
                                             ref={fileInput}
                                             onChange={(e) => setProfilePicture(e.target.files)}
                                             />
+                                        <FaPlus />
                                     </div>
-                               </div>
+                               </div> */}
+
+                               <span>Upload new picture</span>
+                               <div className={classes.file__card}>
+                                <div className={classes.file__inputs}>
+                                    <input 
+                                        type="file" 
+                                        ref={fileInput}
+                                        onChange={(e) => setProfilePicture(e.target.files)}
+                                        />
+                                    <div className={classes.button}>
+                                        <FaPlus />
+                                    </div>
+                                </div>
+
+                                <p className="main">Supported files</p>
+                                <p class="info">JPG,PNG</p>
+                                </div>
+                                {profilePicture[0] && <span>Selected file: <span className={classes.imageFile}>{profilePicture[0].name}</span></span>}
 
                                <div className={classes.flex}>
                                     <div className={classes.form__input__file}>

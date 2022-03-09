@@ -20,11 +20,11 @@
         border-radius: 50%;
         background: #fff !important;
         margin: 0 10px !important;
-        object-fit: cover;
+        object-fit: contain;
         @include breakpoint(md) {
             margin: 0 10px !important;
             background: none !important;
-            object-fit: cover !important;
+            object-fit: contain !important;
         }
     }
 
