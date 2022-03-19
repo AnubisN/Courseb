@@ -6,7 +6,7 @@ import requests as req
 import xml.etree.ElementTree as ET
 import uuid
 
-from .models import Blog, Course, FAQ, Gallery, Testimonial, User, EnrolledCourse, Review, Category, ForgetPasswordToken
+from .models import Blog, Course, FAQ, Gallery, Testimonial, User, EnrolledCourse, Review, Category, ForgetPasswordToken, Message
 from .serializers import BlogSerializer, CourseSerializer, FAQSerializer, GallerySerializer, TestimonialSerializer, UserSerializer, UserSerializerWithToken, UserPasswordSerializer, EnrolledCourseSerializer, CategorySerializer
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -28,6 +28,23 @@ class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
 
 # Create your views here.
+
+@api_view(['POST'])
+def registerMessage(request):
+    data = request.data
+
+    try:
+        msg = Message.objects.create(
+            firstName=data['firstName'],
+            lastName=data['lastName'],
+            email = data['email'],
+            message=data['message'],
+        )
+        message = {'detail': 'Your message was successfully submitted.'}
+        return Response(message,status=status.HTTP_200_OK)
+    except:
+        message = {'detail': 'User with this email already exists'}
+        return Response(message,status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
 def registerUser(request):
