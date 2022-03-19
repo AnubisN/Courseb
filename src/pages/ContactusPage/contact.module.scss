@@ -15,7 +15,6 @@
     left: 0;
     width: 50%;
     height: 100%;
-    background: $secondary;
 }
 
 .container {
@@ -147,7 +146,7 @@
                    font-size: 12px;
                    font-weight: 400;
                    letter-spacing: 1px;
-                   color: #095a55;
+                   color: $primarylight;
                    font-weight: 500;
                 }
 

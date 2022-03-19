@@ -20,7 +20,6 @@ img {
     display: flex;
     flex-direction: column;
     position: relative;
-    justify-content: center;
 
     @include breakpoint(md) {
         width: 80%;
@@ -34,18 +33,24 @@ img {
     &__content {
         order: 2;
         width: 100%;
+        text-align: center;
         @include breakpoint(md) {
             order: 1;
             width: 47%;
             max-width: 47%;
             margin-top: 183px;
+            text-align:start;
         }
 
        & h1 {
-           font-size: 2.5rem;
+           font-size: 2em;
+
+            @media (min-width: 768px) and (max-width: 1787px){
+                font-size: 4em !important;
+            }
 
            @include breakpoint(md) {
-            font-size: 5rem !important;
+            font-size: 5rem;
            }
        }
 

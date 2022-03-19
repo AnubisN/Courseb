@@ -23,7 +23,6 @@ function Footer() {
                     <ul className={classes.footer__container__col__ul}>
                         <li><Link to="/aboutus">About Us</Link></li>
                         <li><Link to="/contactus">Contact Us</Link></li>
-                        <li><a href="">Jobs</a></li>
                     </ul>
                 </div>
                 <div className={classes.footer__container__col}>

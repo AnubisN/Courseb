@@ -8,6 +8,7 @@ import { blogDetailsReducer, blogListReducer } from './reducers/blogReducers';
 import { galleryListReducer } from './reducers/galleryReducers';
 import { userPasswordReducer, userLoginReducer, userRegisterReducer, userDetailsReducer, userUpdateProfileReducer, userProfilePictureReducer } from './reducers/userReducers';
 import { cartReducer } from './reducers/cartReducers';
+import { contactReducer } from './reducers/contactReducer';
 
 const reducer = combineReducers({
     courseList: courseListReducer,
@@ -28,6 +29,7 @@ const reducer = combineReducers({
     coursePosts: coursePostsReducer,
     courseReviewCreate: courseReviewCreateReducer, 
     courseCategory: courseCategoryReducer,
+    contactMsg: contactReducer
 })
 
 const userInfoFromStorage = localStorage.getItem('userInfo') ?
