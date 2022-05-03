@@ -1,0 +1,70 @@
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "patterns": [
+        "Hi",
+        "How are you",
+        "Is anyone there?",
+        "Hello",
+        "Good day",
+        "Whats up"
+      ],
+      "responses": [
+        "Hello!",
+        "Good to see you again!",
+        "Hi there, how can I help?"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "goodbye",
+      "patterns": [
+        "cya",
+        "See you later",
+        "Goodbye",
+        "I am Leaving",
+        "Have a Good day"
+      ],
+      "responses": ["Sad to see you go :(", "Talk to you later", "Goodbye!"],
+      "context_set": ""
+    },
+    {
+      "tag": "refund",
+      "patterns": [
+        "Can i refund courses?",
+        "refund policy",
+        "refund a course",
+        "refund?"
+      ],
+      "responses": [
+        "Unfortunately, Courseb doesnot provide refund to purchased courses."
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "courses",
+      "patterns": [
+        "what kind of courses do you offer?",
+        "course",
+        "courses?",
+        "available courses"
+      ],
+      "responses": [
+        "Courseb provides different category of courses.",
+        "You can browse courses page"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "payment",
+      "patterns": ["payments accepted", "Payments", "payment for course"],
+      "responses": [
+        "Esewa and khalti",
+        "We accpet Esewa and khalti payments only.",
+        "For bank transfers you need to contact admin"
+      ],
+      "context_set": ""
+    }
+  ]
+}

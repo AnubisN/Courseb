@@ -11,4 +11,3 @@ class CoursePostSerializer(serializers.ModelSerializer):
     def get_course(self, obj):
         serializer = CourseOnlySerializer(obj.course, many=False)
         return serializer.data
-

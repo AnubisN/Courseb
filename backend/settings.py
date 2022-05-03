@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 
     'base.apps.BaseConfig',
     'post.apps.PostConfig',
+    'chatbotAPI'
    
 ]
 
@@ -198,3 +199,6 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'coursebtraining@gmail.com'
 EMAIL_HOST_PASSWORD = 'courseb123@'
+
+import os
+MODELS = os.path.join(BASE_DIR,'ml\models')

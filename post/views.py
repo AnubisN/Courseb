@@ -1,3 +1,4 @@
+from copyreg import constructor
 from django.shortcuts import render
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
@@ -11,7 +12,6 @@ from .serializers import CoursePostSerializer
 def getPosts(reqeust,pk):
     posts = CoursePost.objects.filter(course=pk).order_by('-createdAt')
     res = []
-    print(posts)
     for post in posts:
         serializer = CoursePostSerializer(post, many=False)
         res.append(serializer.data)
