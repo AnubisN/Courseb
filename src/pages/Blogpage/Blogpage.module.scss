@@ -1,177 +1,177 @@
-@import '../../styles/variables.scss';
+@import "../../styles/variables.scss";
 
 .container {
-    width: 80%;
-    max-width: 80%;
-    margin: 4em auto;
+  width: 80%;
+  max-width: 80%;
+  margin: 4em auto;
 }
 
 .title {
-    font-size: 2rem;
-    margin-bottom: 1em;
+  font-size: 2rem;
+  margin-bottom: 1em;
 }
 
 .currentBlog {
-    border-bottom: 1px solid $pgColor;
-    margin-bottom: 2em;
-    &__img {
-        width: 100%;
-        height: 500px;
+  border-bottom: 1px solid $pgColor;
+  margin-bottom: 2em;
+  &__img {
+    width: 100%;
+    height: 500px;
 
-        & img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+    & img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__content {
+    margin-bottom: 1em;
+    &__uploadedTime {
+      margin: 1em 0;
+      font-size: 1rem;
+      color: $pgColor;
+      font-weight: bold;
     }
 
-    &__content {
-        margin-bottom: 1em;
-        &__uploadedTime {
-            margin: 1em 0;
-            font-size: 1rem;
-            color: $pgColor;
-            font-weight: bold;
-        }
-
-        &__title {
-            margin-bottom: 0.5em;
-        }
-
-        &__tag {
-            margin-bottom: 0.5em;
-            font-size: 1.1rem;
-            font-weight: bold;
-        }
-
-        &__desc {
-            color: $pgColor;
-            font-size: 1.1rem;
-            text-align: justify;
-            margin-bottom: 0.6em;
-        }
-
-        &__link {
-            font-size: 1.089rem;
-            color: $secondary;
-            text-decoration: underline;
-            padding: 0.4em 0;
-            font-weight: bold;
-
-            transition: all .2s ease-in;
-
-            &:hover,
-            &:focus {
-                cursor: pointer;
-                color: $pgColor;
-            }
-        }
+    &__title {
+      margin-bottom: 0.5em;
     }
+
+    &__tag {
+      margin-bottom: 0.5em;
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+
+    &__desc {
+      color: $pgColor;
+      font-size: 1.1rem;
+      text-align: justify;
+      margin-bottom: 0.6em;
+    }
+
+    &__link {
+      font-size: 1.089rem;
+      color: $secondary;
+      text-decoration: underline;
+      padding: 0.4em 0;
+      font-weight: bold;
+
+      transition: all 0.2s ease-in;
+
+      &:hover,
+      &:focus {
+        cursor: pointer;
+        color: $pgColor;
+      }
+    }
+  }
 }
 
 .nextBlog {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    flex-direction: column;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  flex-direction: column;
+
+  @include breakpoint(md) {
+    flex-direction: row;
+  }
+
+  margin-bottom: 2em;
+  &__img {
+    width: 100%;
+    height: 340px;
 
     @include breakpoint(md) {
-        flex-direction: row;
+      width: 49%;
     }
 
-    margin-bottom: 2em;
-    &__img {
-        width: 100%;
-        height: 340px;
+    & img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
 
-        @include breakpoint(md) {
-            width: 49%;
-        }
+  &__content {
+    width: 100%;
 
-        & img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+    @include breakpoint(md) {
+      width: 49%;
     }
 
-    &__content {
-        width: 100%;
-
-        @include breakpoint(md) {
-            width: 49%;
-        }
-
-        margin-bottom: 1em;
-        &__uploadedTime {
-            margin: 1em 0;
-            font-size: 1rem;
-            color: $pgColor;
-            font-weight: bold;
-        }
-
-        &__title {
-            margin-bottom: 0.5em;
-        }
-
-        &__tag {
-            margin-bottom: 0.5em;
-            font-size: 1.1rem;
-            font-weight: bold;
-        }
-
-        &__desc {
-            color: $pgColor;
-            font-size: 1.1rem;
-            text-align: justify;
-            margin-bottom: 0.6em;
-        }
-
-        &__link {
-            font-size: 1.089rem;
-            color: $secondary;
-            text-decoration: underline;
-            padding: 0.4em 0;
-            font-weight: bold;
-            transition: all .2s ease-in;
-
-            &:hover,
-            &:focus {
-                cursor: pointer;
-                color: $pgColor;
-            }
-        }
+    margin-bottom: 1em;
+    &__uploadedTime {
+      margin: 1em 0;
+      font-size: 1rem;
+      color: $pgColor;
+      font-weight: bold;
     }
+
+    &__title {
+      margin-bottom: 0.5em;
+    }
+
+    &__tag {
+      margin-bottom: 0.5em;
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+
+    &__desc {
+      color: $pgColor;
+      font-size: 1.1rem;
+      text-align: justify;
+      margin-bottom: 0.6em;
+    }
+
+    &__link {
+      font-size: 1.089rem;
+      color: $secondary;
+      text-decoration: underline;
+      padding: 0.4em 0;
+      font-weight: bold;
+      transition: all 0.2s ease-in;
+
+      &:hover,
+      &:focus {
+        cursor: pointer;
+        color: $pgColor;
+      }
+    }
+  }
 }
 
 .pagination {
-    margin: 0 auto;
+  margin: 0 auto;
 }
 
 .paginationBttns {
-    width: 100%;
-    height: 40px;
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    margin: 0 auto;
+  width: 100%;
+  height: 40px;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
 }
 
 .paginationBttns a {
-    padding: 10px;
-    margin: 8px;
-    border-radius: 5px;
-    color: $secondary;
-    cursor: pointer;
+  padding: 10px;
+  margin: 8px;
+  border-radius: 5px;
+  color: $secondary;
+  cursor: pointer;
 }
 
 .paginationBttns a:hover,
 .paginationBttns a:focus {
-    color: white;
-    background-color: $secondary;
+  color: white;
+  background-color: $secondary;
 }
 
 .paginationBttns a:active {
-    color: white;
-    background-color: $secondary;
+  color: white;
+  background-color: $secondary;
 }

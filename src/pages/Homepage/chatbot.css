@@ -1,0 +1,22 @@
+.bot-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.bot-btn:hover {
+  cursor: pointer;
+}
+
+.bot-btn img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.chatbot-container {
+  margin: 5px;
+  display: flex;
+  justify-content: flex-end;
+}
